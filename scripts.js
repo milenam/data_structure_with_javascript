@@ -193,8 +193,65 @@ for (var i = n; i >= 0; --i) {
 function weekTemps() { 
 	this.dataStore = []; 
 	this.add = add; 
-	this.average = average;
+  this.average = average;
+
 } 
+
+function add(grade, week) {
+   var weeks = 4;
+   var weekdays = 7;
+   for(var i = 0; i < weeks; ++i) {
+	  this.dataStore[i] = [];
+    for(var j = 0; j < weekdays; ++j) {
+    this.dataStore[i].push(grade);
+    }
+  }
+}
+
+function average() {
+  var weektotal = 0;
+	  for (var i = 0; i < this.dataStore.length; ++i) {
+	  weektotal += this.dataStore[i]; 
+  }
+  return weektotal / this.dataStore.length; 
+}
+var stat = new weekTemps();
+stat.add(53);
+stat.add(53);
+stat.add(73);
+
+console.log(stat.average());
+console.log(stat.dataStore);
+
+// 4
+
+function Words() { 
+  this.dataStore = []; 
+  this.add = add; 
+  this.displayWord = displayWord;
+}
+
+function add(letter) {
+  this.dataStore.push(letter);
+}
+
+function displayWord() {
+
+  var words = this.dataStore.join("");
+  console.log(words);
+}
+
+var randWord = new Words();
+randWord.add('i');
+randWord.add('p');
+randWord.add('h');
+randWord.add('o');
+randWord.add('n');
+randWord.add('e');
+
+randWord.displayWord();
+
+
 
 
 
