@@ -189,39 +189,39 @@ for (var i = n; i >= 0; --i) {
 } 
 
 // 3
+// TODO: write this in the prototypal pattern
 
+window.dataStore = new Array.matrix(4, 7, null);
 function weekTemps() { 
-	this.dataStore = []; 
-	this.add = add; 
+  
+  this.add = add; 
   this.average = average;
 
 } 
 
-function add(grade, week) {
-   var weeks = 4;
-   var weekdays = 7;
-   for(var i = 0; i < weeks; ++i) {
-	  this.dataStore[i] = [];
-    for(var j = 0; j < weekdays; ++j) {
-    this.dataStore[i].push(grade);
-    }
-  }
+function add(temp, week, dayoftheweek) {
+  window.dataStore[week][dayoftheweek] = temp;
 }
 
-function average() {
+weekTemps.prototype.average = function() {
   var weektotal = 0;
-	  for (var i = 0; i < this.dataStore.length; ++i) {
-	  weektotal += this.dataStore[i]; 
+	  for (var i = 0; i < window.dataStore.length; ++i) {
+	  weektotal += window.dataStore[i]; 
   }
-  return weektotal / this.dataStore.length; 
+  return weektotal / window.dataStore.length; 
 }
 var stat = new weekTemps();
-stat.add(53);
-stat.add(53);
-stat.add(73);
+stat.add(53, 0, 2);
+stat.add(43, 1, 0);
+stat.add(73, 2, 1);
 
-console.log(stat.average());
-console.log(stat.dataStore);
+// stat.add(temp, week, dayoftheweek);
+// [[],
+//  [],
+//  [],
+//  []]
+
+console.log(this.dataStore);
 
 // 4
 
