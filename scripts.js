@@ -255,5 +255,41 @@ randWord.displayWord();
 
 
 
+function weekTemps() { 
+  this.dataStore = function() {
+    Array.prototype.matrix(4, 7, null) // trying to copy an Array object into weekTemps
+  };
+
+} 
+
+
+
+weekTemps.prototype.add = function(temp, week, dayoftheweek) {
+  this.dataStore[week][dayoftheweek] = temp;
+}
+
+weekTemps.prototype.average = function() {
+  var weektotal = 0;
+    for (var i = 0; i < this.dataStore.length; ++i) {
+    weektotal += this.dataStore[i]; 
+  }
+  return weektotal / this.dataStore.length; 
+}
+var stat = new weekTemps();
+stat.add(53, 0, 2);
+stat.add(43, 1, 0);
+stat.add(73, 2, 1);
+
+// stat.add(temp, week, dayoftheweek);
+// [[],
+//  [],
+//  [],
+//  []]
+
+console.log(this.dataStore);
+
+
+
+
 
 
