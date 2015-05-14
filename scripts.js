@@ -289,6 +289,30 @@ stat.add(73, 2, 1);
 console.log(this.dataStore);
 
 
+// Don't polute the global namespace!
+// TODO: show me the version of code you have in mind
+// TODO: create two "classes" that share some prototyped behavior
+
+var Foo = function() {
+    this.instMeth = 3;
+    this.add = function(val) {
+        return (this.instMeth + val);
+    }
+}
+
+
+var Bar = function() {
+    this.diffMeth = 5;
+    this.add = function(val) {
+        return (this.diffMeth + val + 4);
+    }   
+}
+
+var f = new Foo()
+f.instMeth;
+
+var b = new Bar();
+b.diffMeth;
 
 
 
