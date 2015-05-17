@@ -191,37 +191,60 @@ for (var i = n; i >= 0; --i) {
 // 3
 // TODO: write this in the prototypal pattern
 
-window.dataStore = new Array.matrix(4, 7, null);
-function weekTemps() { 
-  
-  this.add = add; 
-  this.average = average;
-
-} 
-
-function add(temp, week, dayoftheweek) {
-  window.dataStore[week][dayoftheweek] = temp;
-}
-
-weekTemps.prototype.average = function() {
-  var weektotal = 0;
-	  for (var i = 0; i < window.dataStore.length; ++i) {
-	  weektotal += window.dataStore[i]; 
+Array.matrix = function(numrows, numcols, initial) { 
+  var arr = []; 
+  for(var i=0; i < numrows; ++i) {
+    var columns = []; 
+    for(var j=0; j < numcols; ++j){
+      columns[j] = initial;
+    }
+    arr[i] = columns;
   }
-  return weektotal / window.dataStore.length; 
+  return arr; 
 }
-var stat = new weekTemps();
+
+function weekTemps() { 
+  this.dataStore = new Array.matrix(4, 7, null); 
+  console.log(this.dataStore);
+};
+
+
+
+
+weekTemps.prototype.add = function(temp, week, dayoftheweek) {
+  this.dataStore[week][dayoftheweek] = temp;
+}
+
+weekTemps.prototype.monthAverage = function() {
+  var monthtotal = 0;
+    for (var i = 0; i < this.dataStore.length; ++i) {
+      for(var j=0; j < this.dataStore[i].length; ++j){
+      monthtotal += this.dataStore[i][j];
+    }
+  }
+  return monthtotal / this.dataStore.length; 
+}
+
+weekTemps.prototype.spWeekAverage = function(week) {
+  this.dataStore[week];
+  console.log(this.dataStore[week]);
+  
+  var spweektotal = 0;
+  for (var i = 0; i < this.dataStore[week].length; ++i) {
+      spweektotal += this.dataStore[week][i];
+    }
+  return spweektotal / this.dataStore[week].length; 
+  }
+var stat = new weekTemps(); 
 stat.add(53, 0, 2);
 stat.add(43, 1, 0);
 stat.add(73, 2, 1);
+stat.add(53, 3, 6);
+stat.add(43, 1, 5);
+stat.add(73, 2, 4);
 
-// stat.add(temp, week, dayoftheweek);
-// [[],
-//  [],
-//  [],
-//  []]
-
-console.log(this.dataStore);
+stat.monthAverage();
+stat.spWeekAverage(1);
 
 // 4
 
@@ -252,43 +275,6 @@ randWord.add('e');
 randWord.displayWord();
 
 
-
-
-
-function weekTemps() { 
-  this.dataStore = function() {
-    Array.prototype.matrix(4, 7, null) // trying to copy an Array object into weekTemps
-  };
-
-} 
-
-
-
-weekTemps.prototype.add = function(temp, week, dayoftheweek) {
-  this.dataStore[week][dayoftheweek] = temp;
-}
-
-weekTemps.prototype.average = function() {
-  var weektotal = 0;
-    for (var i = 0; i < this.dataStore.length; ++i) {
-    weektotal += this.dataStore[i]; 
-  }
-  return weektotal / this.dataStore.length; 
-}
-var stat = new weekTemps();
-stat.add(53, 0, 2);
-stat.add(43, 1, 0);
-stat.add(73, 2, 1);
-
-// stat.add(temp, week, dayoftheweek);
-// [[],
-//  [],
-//  [],
-//  []]
-
-console.log(this.dataStore);
-
-
 // Don't polute the global namespace!
 // TODO: show me the version of code you have in mind
 // TODO: create two "classes" that share some prototyped behavior
@@ -315,5 +301,85 @@ var b = new Bar();
 b.diffMeth;
 
 
+// =================
+
+var FooBar = function(val) {
+  this.val = val;
+}
+
+var Foo = function(val) {
+  FooBar.call(this, val);
+}
+
+
+Foo.prototype = Object.create(FooBar.prototype);
+Foo.prototype.constructor = Foo;
+Foo.prototype.add = function(val) {
+  var constnum = 6;
+      return (val + constnum);
+  }
+
+
+var Bar = function(val) {
+    FooBar.call(this, val);
+}
+
+Bar.prototype = Object.create(Foo.prototype);
+Bar.prototype.constructor = Bar;
+Bar.prototype.add = function(val) {
+  var constnum = 99;
+      return (val + constnum);
+
+  }
+
+
+var f = new Foo() // when running this only one value displays, I was wrong about that, two classes can't use two different methods with the same name.
+f.add(5);
+
+var b = new Bar()
+b.add(5);
+
+// =================== OR
+
+var FooBar = function() {
+
+}
+
+FooBar.prototype.add = function(val) { // here you can have the same add method for every instance of a class
+  return val + 4;
+}
+
+var Foo = function(val) {
+    FooBar.call(this, val);
+}
+
+
+Foo.prototype = Object.create(FooBar.prototype);
+Foo.prototype.constructor = Foo;
+Foo.prototype.add = function(val) {
+  var constnum = 6;
+      return (val + constnum); // the Foo subclass overrides the FooBar's add method.
+  }
+
+
+var Bar = function(val) {
+    FooBar.call(this, val);
+}
+
+Bar.prototype = Object.create(FooBar.prototype);
+Bar.prototype.constructor = Bar;
+Bar.prototype.add = function(val) { // the Bar subclass overrides the FooBar's and Foo's add methods.
+  var constnum = 99;
+      return (val + constnum + 1);
+
+  }
+
+
+var s = new FooBar();
+s.add(5);
+
+
+var f = new Foo();
+f.add(7);
 
 
