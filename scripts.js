@@ -316,4 +316,171 @@ b.diffMeth;
 
 
 
+// LISTS
+// 1 - 2
+
+function List() {
+  this.listSize = 0;
+  this.pos = 0;
+  this.dataStore = []; 
+  this.find = find;
+  this.toString = toString;
+  this.insert = insert; 
+  this.append = append;
+  this.bigger = bigger;
+  this.smaller = smaller;
+}
+
+function append(element) { 
+  this.dataStore.push(element);
+  this.listSize++;
+
+}
+
+function find(element) {
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    if (this.dataStore[i] == element) { 
+      return i;
+    } 
+  }
+  return -1; 
+}
+
+function smaller(element) {
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    if (this.dataStore[i] > element) { 
+      return true;
+    } 
+  }
+  return false; 
+}
+
+function bigger(element) {
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    if (this.dataStore[i] < element) { 
+      return true;
+    } 
+  }
+  return false; 
+}
+
+function insert(element, after) { 
+  var insertPos = this.find(after);
+  if ((insertPos > -1) && (this.bigger(element))) {
+  
+    this.dataStore.splice(insertPos+1, 0, element); 
+    ++this.listSize;
+    console.log(this.listSize);
+    return true;
+}
+return false; }
+
+var list = new List();
+list.append(5);
+list.append(12);
+list.append(11);
+list.append(2);
+list.append(99);
+
+
+list.insert("Meli", 5);
+
+// 3
+
+function List() {
+  this.listSize = 0;
+  this.pos = 0;
+  this.dataStore = []; 
+  this.find = find;
+  this.toString = toString;
+  this.insert = insert; 
+  this.append = append; 
+  this.remove = remove; 
+  this.front = front; 
+  this.end = end;
+  this.prev = prev;
+  this.next = next;
+  this.length = length; 
+  this.currPos = currPos; 
+  this.moveTo = moveTo; 
+  this.getElement = getElement; 
+  this.length = length; 
+  this.contains = contains;
+}
+
+function front() { 
+  this.pos = 0;
+}
+
+function end() {
+ this.pos = this.listSize-1;
+}
+
+function prev() {
+  if (this.pos > 0) {
+  --this.pos; }
+}
+
+function next() {
+  if (this.pos < this.listSize-1) {
+  ++this.pos; 
+  }
+}
+
+function currPos() { 
+  return this.pos;
+}
+
+function moveTo(position) { 
+  this.pos = position;
+}
+
+function getElement() {
+  return this.dataStore[this.pos];
+}
+
+function displayList(list) {
+  for (list.front(); list.currPos() < list.length(); list.next()) {
+    if (list.getElement() instanceof Customer) { print(list.getElement()["name"] + ", " +
+      list.getElement()["movie"]);
+    }
+   else {
+      print(list.getElement());
+    }
+  }
+}
+
+var Person = function {
+  this.name = name;
+  this.gender = gender;
+}
+
+var person = new Person();
+person.name("fdg");
+person.gender("male");
+person.name("trytry");
+person.gender("female");
+person.name("retet");
+person.gender("male");
+person.name("dfhgfh");
+person.gender("male");
+person.name("uyiy");
+person.gender("female");
+person.name("wsdqws");
+person.gender("male");
+person.name("wqewe");
+person.gender("male");
+person.name("uioiupoi");
+person.gender("female");
+person.name("fertdg");
+person.gender("female");
+
+
+
+
+
+
+
+
+
 
