@@ -576,14 +576,21 @@ function remove(element) {
 }
 
 function displayList(list) {
+  console.log(list.next());
   for (list.front(); list.currPos() < list.length(); list.next()) {
 
-      console.log(list.getElement()["movie"]);
+      console.log(list.getElement());
     
   }
 }
 
-
+var movies = ["movie1", "movie2"];
+var filmList = new List();
+for (var i = 0; i < movies.length; ++i) {
+       filmList.append(movies[i]);
+    }
+var customers = new List();
+var rentList = new List();
 
 var Customer = function(name, movie) {
   this.name = name;
@@ -603,6 +610,118 @@ else {
        }
 }
 
+function checkIn(name, movie, filmList, rentList, customerList) { 
+  if (filmList.contains(movie)) {
+  var c = new Customer(name, movie); 
+    customerList.append(c); 
+    rentList.remove(movie);
+    filmList.append(movie);
+}else {
+    console.log(movie + " is not available.");
+  }
+}
+
+
+
+
+checkOut("ghhgj", "movie1", filmList, rentList, customers);
+checkOut("ghhdfrgj", "movie2", filmList, rentList, customers);
+
+displayList(rentList);
+
+// 5
+
+function List() {
+  this.listSize = 0;
+  this.pos = 0;
+  this.dataStore = []; 
+  this.find = find;
+  this.toString = toString; 
+  this.append = append; 
+  this.front = front; 
+  this.end = end;
+  this.prev = prev;
+  this.next = next;
+  this.length = length; 
+  this.currPos = currPos;
+  this.remove = remove;
+  this.moveTo = moveTo; 
+  this.getElement = getElement; 
+  this.length = length;
+  this.contains = contains;
+}
+
+function append(element) { 
+  this.dataStore[this.listSize++] = element;
+}
+
+function length() { 
+  return this.listSize;
+}
+
+function front() { 
+  return this.pos = 0;
+}
+
+function end() {
+ this.pos = this.listSize-1;
+}
+
+function prev() {
+  if (this.pos > 0) {
+  --this.pos; }
+}
+
+function next() {
+
+  return ++this.pos; 
+ 
+}
+
+function currPos() { 
+  return this.pos;
+}
+
+function contains(element) {
+ for (var i = 0; i < this.dataStore.length; ++i) {
+ if (this.dataStore[i] == element) { 
+   return true;
+   } 
+ }
+return false; }
+
+function moveTo(position) { 
+  this.pos = position;
+}
+
+function getElement() {
+  return this.dataStore[this.pos];
+}
+
+function find(element) {
+for (var i = 0; i < this.dataStore.length; ++i) {
+if (this.dataStore[i] == element) { return i;
+} }
+return -1; }
+
+
+function remove(element) {
+  var foundAt = this.find(element); if (foundAt > -1) {
+    this.dataStore.splice(foundAt,1); --this.listSize;
+    return true;
+  }
+  return false; 
+}
+
+function displayList(list) {
+  console.log(list.next());
+  for (list.front(); list.currPos() < list.length(); list.next()) {
+
+      console.log(list.getElement());
+    
+  }
+}
+
 var movies = ["movie1", "movie2"];
 var filmList = new List();
 for (var i = 0; i < movies.length; ++i) {
@@ -611,9 +730,42 @@ for (var i = 0; i < movies.length; ++i) {
 var customers = new List();
 var rentList = new List();
 
-checkOut("ghhgj", "movie1", filmList, rentList, customers);
+var Customer = function(name, movie) {
+  this.name = name;
+  this.movie = movie;
+}
 
-displayList(rentList);
+
+function checkOut(name, movie, filmList, rentList, customerList) { 
+  if (filmList.contains(movie)) {
+  var c = new Customer(name, movie); 
+    customerList.append(c); 
+    filmList.remove(movie);
+    rentList.append(movie);
+}
+else {
+          console.log(movie + " is not available.");
+       }
+}
+
+function checkIn(name, movie, filmList, rentList, customerList) { 
+  var c = new Customer(name, movie); 
+    customerList.append(c); 
+    rentList.remove(movie);
+    filmList.append(movie);
+}
+
+
+
+
+checkOut("ghhgj", "movie1", filmList, rentList, customers);
+checkOut("ghhdfrgj", "movie2", filmList, rentList, customers);
+
+checkIn("ghhdfrgj", "movie2", filmList, rentList, customers);
+
+displayList(filmList);
+
+
 
 
 
