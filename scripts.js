@@ -314,6 +314,177 @@ f.instMeth;
 var b = new Bar();
 b.diffMeth;
 
+// STACKS 
+
+// #1
+function Stack() { 
+  this.dataStore = [];
+  this.top = 0; 
+  this.push = push; 
+  this.pop = pop; 
+  this.peek = peek; 
+  this.clear = clear; 
+  this.length = length;
+}
+function push(element) { 
+  this.dataStore[this.top++] = element;
+}
+
+function peek() {
+  return this.dataStore[this.top-1];
+}
+
+function pop() {
+  return this.dataStore[--this.top];
+}
+
+function clear() {  
+  this.top = 0;
+}
+
+function length() { 
+  return this.top;
+}
+
+function balancedBrackets(string) {
+  var s = new Stack();
+  
+  for (var i = 0; i < string.length; ++i) {
+      s.push(string[i]);
+      console.log(s);
+      
+  }
+  
+  var newstr = "";
+  while (s.length() > 0) {
+      newstr += s.pop();
+      console.log(newstr);
+   }
+  
+  for (var j = 0; j < newstr.length; ++j) {
+    var leftbracket = "(";
+    var rightbracket = ")";
+    if ((newstr[j] == leftbracket) && (newstr[j] == rightbracket)) { 
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+balancedBrackets("6+4*(31)");
+
+// #2 
+
+function Stack() { 
+  this.dataStore = [];
+  this.top = 0; 
+  this.push = push; 
+  this.pop = pop; 
+  this.peek = peek; 
+  this.clear = clear; 
+  this.length = length;
+}
+function push(element) { 
+  this.dataStore[this.top++] = element;
+}
+
+function peek() {
+  return this.dataStore[this.top-1];
+}
+
+function pop() {
+  return this.dataStore[--this.top];
+}
+
+function clear() {  
+  this.top = 0;
+}
+
+function length() { 
+  return this.top;
+}
+
+function converter(expression) {
+  var operands = new Stack;
+  var operators = new Stack;
+  
+ for (var i = 0; i < expression.length; ++i) {
+   if (!(expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
+     operands.push(expression[i]);
+   } else {
+     operators.push(expression[i]);
+   }   
+  } 
+ 
+  
+   console.log(operands);
+   console.log(operators);
+  for (var j = 0; j < operators.dataStore.length; ++j) {
+    if ((operators.dataStore[j] == "*") || (operators.dataStore[j] == "/"))
+   
+    operands.push(operators.pop()); 
+  }
+  console.log(operands);
+}
+
+converter('1+2*3-2');
 
 
+// 3
+
+function Stack() { 
+  this.dataStore = [];
+  this.top = 0; 
+  this.push = push; 
+  this.pop = pop; 
+  this.peek = peek; 
+  this.clear = clear; 
+  this.length = length;
+}
+function push(element) { 
+  this.dataStore[this.top++] = element;
+}
+
+function peek() {
+  return this.dataStore[this.top-1];
+}
+
+function pop() {
+  return this.dataStore[--this.top];
+}
+
+function clear() {  
+  this.top = 0;
+}
+
+function length() { 
+  return this.top;
+}
+
+function PDispenser(candies) {
+  var s = new Stack();
+  var arrayOfCandies = candies.split(',');
+  
+  for (var i = 0; i < arrayOfCandies.length; ++i) {
+      s.push(arrayOfCandies[i]);
+    
+      
+  }
+  
+  var temp = new Stack();
+  var yellow = "yellow";
+  
+  for (var j = 0; j < s.dataStore.length; ++j) {
+    console.log(s.dataStore);
+      if(s.dataStore[j] === yellow) {
+        var removed = s.dataStore.splice(j, 1)
+        temp.push(removed);
+        console.log(s.dataStore);
+
+    }
+  }
+}
+
+PDispenser('yellow, red, white, yellow, red');
 
