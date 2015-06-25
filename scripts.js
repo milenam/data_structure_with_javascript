@@ -492,3 +492,73 @@ function PDispenser(candies) {
 
 PDispenser('yellow, red, white, yellow, red');
 
+
+// Stuff
+
+function Stack() {
+  this.dataStore = [];
+  this.top = 0;
+  this.push = push;
+  this.pop = pop;
+  this.peek = peek;
+  this.clear = clear;
+  this.length = length;
+}
+function push(element) {
+  this.dataStore[this.top++] = element;
+}
+
+function peek() {
+  return this.dataStore[this.top-1];
+}
+
+function pop() {
+  return this.dataStore[--this.top];
+}
+
+function clear() {
+  this.top = 0;
+}
+
+function length() {
+  return this.top;
+}
+// TODO:
+// 1. if a closing prn is missing show the position of the openning prn
+// 2. If there two many closing prns, throw an error
+// 3. Show Bryce the state of a stack for each iteration of a loop
+// 4. Refactor the counter's out(dataStore.length)
+
+function balancedBrackets(exp) {
+  var string = exp.split('');
+  var s = new Stack();
+
+
+  for (var i = 0; i < string.length; ++i) {
+    if (string[i] == "(" && string[i] == ")") {
+
+      s.push(string[i]);
+    }
+
+    if (string[i] == ")") {
+    
+      s.pop(string[i]);
+    }
+   
+  }
+  for (var i = 0; i < s.dataStore.length; ++i) {
+    if (s.top > 0 && s.dataStore[i] == ")") {
+       console.log("you're missing open prn");
+    } else if (s.top > 0 && s.dataStore[i] == "(") {
+       console.log("you're missing cls prn");
+    } else {
+       console.log('nothing is missing');
+     }
+  }
+  console.log(s);
+  
+  
+
+}
+balancedBrackets("6+4)*31+1203");
+
