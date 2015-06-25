@@ -535,30 +535,30 @@ function balancedBrackets(exp) {
 
 
   for (var i = 0; i < string.length; ++i) {
-    if (string[i] == "(" && string[i] == ")") {
+    if (string[i] == "(" || string[i] == ")") {
 
       s.push(string[i]);
+      console.log(s);
     }
 
-    if (string[i] == ")") {
+    if (string[i] == ")" || string[i] == "(") {
     
-      s.pop(string[i]);
+      s.pop();
+   
     }
    
   }
+  console.log(s);
   for (var i = 0; i < s.dataStore.length; ++i) {
-    if (s.top > 0 && s.dataStore[i] == ")") {
+    console.log(s.dataStore[i]);
+    if (s.dataStore[i] == ")") {
        console.log("you're missing open prn");
-    } else if (s.top > 0 && s.dataStore[i] == "(") {
+    } else if (s.dataStore[i] == "(") {
        console.log("you're missing cls prn");
     } else {
-       console.log('nothing is missing');
-     }
+       return true;
+    } 
   }
-  console.log(s);
-  
-  
-
 }
-balancedBrackets("6+4)*31+1203");
+balancedBrackets("(6+4)*(31+)+(3+1203)");
 
