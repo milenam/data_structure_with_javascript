@@ -562,3 +562,96 @@ function balancedBrackets(exp) {
 }
 balancedBrackets("(6+4)*(31+)+(3+1203)");
 
+// palying with stacks
+
+function Stack() {
+  this.dataStore = [];
+  this.top = 0;
+  this.put = put;
+  this.pop = pop;
+  this.peek = peek;
+  this.clear = clear;
+  this.length = length;
+}
+function put(element) {
+  this.dataStore[this.top++] = element;
+}
+
+function peek() {
+  return this.dataStore[this.top-1];
+}
+
+function pop() {
+  return this.dataStore.shift();
+}
+
+function clear() {
+  this.top = 0;
+}
+
+function length() {
+  return this.top;
+}
+
+function priority(operand) {
+  if((operand == '*') || (operand == '/')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function converter(expression) {
+  var operands = new Stack;
+  var operators = new Stack;
+  var newExpression = new Stack;
+  console.log(expression);
+
+ for (var i = 0; i < expression.length; ++i) {
+   if ((expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
+     operators.put(expression[i]);
+   } //else {
+     //if ((expression[i] == "*") || (expression[i] == "/") ) {
+       //operators.put(expression[i]);
+     //} else {
+       //operators.dataStore.push(expression[i]);
+     //}
+   //}
+  }
+  console.log(operators);
+  
+   //console.log(operands);
+   //console.log(operators);
+  
+  //newExpression.put(operands.pop());
+  //newExpression.put(operands.pop());
+  //console.log(operands);
+  
+  //for (var j = 0; j < operators.dataStore.length; ++j) {
+    //for (var j = 0; j < operators.dataStore.length; ++j) {
+      //if ((operators.dataStore[j] == "*") || (operators.dataStore[j] == "/")) {
+        //newExpression.put(operators.dataStore[j]);
+        //newExpression.put(operands.pop());
+
+      //} else {
+       // newExpression.put(operands.pop());
+        //newExpression.put(operators.pop());
+        //newExpression.push(operators.pop());
+        //if ((operators.dataStore[j] == "*") || (operators.dataStore[j] == "/"))  {
+          
+        //} 
+      //}
+    //}
+  //}
+  // console.log(operators);
+  //console.log(newExpression);
+  //for (var j = 0; j < operators.dataStore.length; ++j) {
+    //if ((operators.dataStore[j] == "*") || (operators.dataStore[j] == "/"))
+
+    //operands.push(operators.pop());
+  //}
+  //console.log(operands);
+}
+
+converter('1*2+3*2');
+
