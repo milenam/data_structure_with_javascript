@@ -472,25 +472,24 @@ function PDispenser(candies) {
 
   for (var i = 0; i < arrayOfCandies.length; ++i) {
       s.push(arrayOfCandies[i]);
-
-
   }
-
+  console.log(s);
   var temp = new Stack();
-  var yellow = "yellow";
-
+  //var yellow = "yellow";
+  
+  console.log(s.dataStore);
   for (var j = 0; j < s.dataStore.length; ++j) {
-    console.log(s.dataStore);
-      if(s.dataStore[j] === yellow) {
-        var removed = s.dataStore.splice(j, 1)
-        temp.push(removed);
-        console.log(s.dataStore);
-
+      s.pop();
+      if(s.dataStore[j] != "yellow") {
+        temp.push(s.dataStore[j]);
     }
   }
+  
+  console.log(temp.dataStore);
+
 }
 
-PDispenser('yellow, red, white, yellow, red');
+PDispenser('yellow,red,white,yellow,red,blue');
 
 
 // Stuff
@@ -654,4 +653,79 @@ function converter(expression) {
 }
 
 converter('1*2+3*2');
+
+
+// more
+
+function Stack() {
+  this.dataStore = [];
+  this.top = 0;
+  this.put = put;
+  this.pop = pop;
+  this.peek = peek;
+  this.clear = clear;
+  this.length = length;
+}
+function put(element) {
+  this.dataStore[this.top++] = element;
+}
+
+function peek() {
+  return this.dataStore[this.top-1];
+}
+
+function pop() {
+  return this.dataStore.shift();
+}
+
+function clear() {
+  this.top = 0;
+}
+
+function length() {
+  return this.top;
+}
+
+function hasHigherPriority(operand) {
+  if((operand == '*') || (operand == '/')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function converter(expression) {
+  var s = new Stack;
+  var string = "";
+
+  for (var i = 0; i < expression.length; ++i) {
+    if (!(expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
+      string += expression[i]
+    }else {
+      while(s.dataStore.length != 0 && hasHigherPriority(s.pop())) {
+  
+        string += s.pop();       
+        s.pop();
+        
+      }
+      s.put(expression[i]);
+      
+    }
+   
+  }
+  //console.log(s);
+  //console.log(string);
+  console.log(s);
+  
+  while(s.dataStore.length != 0) {
+    console.log(s);
+    string += s.pop();
+    s.pop();
+  }
+  
+  return string;
+  //console.log(string);
+}
+
+converter('1+2+3*2');
 
