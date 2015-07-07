@@ -378,6 +378,7 @@ function balancedBrackets(string) {
 
 }
 balancedBrackets("(6+4*31+(120/3");
+  
 // #2
 
 function Stack() {
@@ -398,7 +399,7 @@ function peek() {
 }
 
 function pop() {
-  return this.dataStore[--this.top];
+  return this.dataStore.shift();
 }
 
 function clear() {
@@ -409,31 +410,49 @@ function length() {
   return this.top;
 }
 
-function converter(expression) {
-  var operands = new Stack;
-  var operators = new Stack;
-
- for (var i = 0; i < expression.length; ++i) {
-   if (!(expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
-     operands.push(expression[i]);
-   } else {
-     operators.push(expression[i]);
-   }
+function hasHigherPrecedence(operand) {
+  if((operand == "*") || (operand == "/")) {
+    return true;
+  } else if ((operand == "-") || (operand == "+")){
+    return false;
+  } else {
+    return true;
   }
-
-
-   console.log(operands);
-   console.log(operators);
-  for (var j = 0; j < operators.dataStore.length; ++j) {
-    if ((operators.dataStore[j] == "*") || (operators.dataStore[j] == "/"))
-
-    operands.push(operators.pop());
-  }
-  console.log(operands);
 }
 
-converter('1+2*3-2');
+function converter(expression) {
+  var s = new Stack;
+  var string = "";
 
+  for (var i = 0; i < expression.length; ++i) {
+    if (!(expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
+      string += expression[i]
+    }else if (expression[i].match(/["*:<>?\\/|+\-\[\]]/)){
+      if (s.length() != 0 && hasHigherPrecedence(s.peek())) {
+       string += s.peek();
+        
+      }
+      s.push(expression[i]);
+      
+    } else {
+       console.log('Hi');
+    }
+   
+  }
+  
+  if(s.dataStore.length != 0) {
+    console.log(s);
+    string += s.peek();
+    s.pop();
+  }
+  console.log(s);
+  
+  return string;
+
+}
+
+converter('1*2-3');
+//converter('1-2*3');
 
 // 3
 
@@ -490,242 +509,3 @@ function PDispenser(candies) {
 }
 
 PDispenser('yellow,red,white,yellow,red,blue');
-
-
-// Stuff
-
-function Stack() {
-  this.dataStore = [];
-  this.top = 0;
-  this.push = push;
-  this.pop = pop;
-  this.peek = peek;
-  this.clear = clear;
-  this.length = length;
-}
-function push(element) {
-  this.dataStore[this.top++] = element;
-}
-
-function peek() {
-  return this.dataStore[this.top-1];
-}
-
-function pop() {
-  return this.dataStore[--this.top];
-}
-
-function clear() {
-  this.top = 0;
-}
-
-function length() {
-  return this.top;
-}
-// TODO:
-// 1. if a closing prn is missing show the position of the openning prn
-// 2. If there two many closing prns, throw an error
-// 3. Show Bryce the state of a stack for each iteration of a loop
-// 4. Refactor the counter's out(dataStore.length)
-
-function balancedBrackets(exp) {
-  var string = exp.split('');
-  var s = new Stack();
-
-
-  for (var i = 0; i < string.length; ++i) {
-    if (string[i] == "(" || string[i] == ")") {
-
-      s.push(string[i]);
-      console.log(s);
-    }
-
-    if (string[i] == ")" || string[i] == "(") {
-    
-      s.pop();
-   
-    }
-   
-  }
-  console.log(s);
-  for (var i = 0; i < s.dataStore.length; ++i) {
-    console.log(s.dataStore[i]);
-    if (s.dataStore[i] == ")") {
-       console.log("you're missing open prn");
-    } else if (s.dataStore[i] == "(") {
-       console.log("you're missing cls prn");
-    } else {
-       return true;
-    } 
-  }
-}
-balancedBrackets("(6+4)*(31+)+(3+1203)");
-
-// palying with stacks
-
-function Stack() {
-  this.dataStore = [];
-  this.top = 0;
-  this.put = put;
-  this.pop = pop;
-  this.peek = peek;
-  this.clear = clear;
-  this.length = length;
-}
-function put(element) {
-  this.dataStore[this.top++] = element;
-}
-
-function peek() {
-  return this.dataStore[this.top-1];
-}
-
-function pop() {
-  return this.dataStore.shift();
-}
-
-function clear() {
-  this.top = 0;
-}
-
-function length() {
-  return this.top;
-}
-
-function priority(operand) {
-  if((operand == '*') || (operand == '/')) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function converter(expression) {
-  var operands = new Stack;
-  var operators = new Stack;
-  var newExpression = new Stack;
-  console.log(expression);
-
- for (var i = 0; i < expression.length; ++i) {
-   if ((expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
-     operators.put(expression[i]);
-   } //else {
-     //if ((expression[i] == "*") || (expression[i] == "/") ) {
-       //operators.put(expression[i]);
-     //} else {
-       //operators.dataStore.push(expression[i]);
-     //}
-   //}
-  }
-  console.log(operators);
-  
-   //console.log(operands);
-   //console.log(operators);
-  
-  //newExpression.put(operands.pop());
-  //newExpression.put(operands.pop());
-  //console.log(operands);
-  
-  //for (var j = 0; j < operators.dataStore.length; ++j) {
-    //for (var j = 0; j < operators.dataStore.length; ++j) {
-      //if ((operators.dataStore[j] == "*") || (operators.dataStore[j] == "/")) {
-        //newExpression.put(operators.dataStore[j]);
-        //newExpression.put(operands.pop());
-
-      //} else {
-       // newExpression.put(operands.pop());
-        //newExpression.put(operators.pop());
-        //newExpression.push(operators.pop());
-        //if ((operators.dataStore[j] == "*") || (operators.dataStore[j] == "/"))  {
-          
-        //} 
-      //}
-    //}
-  //}
-  // console.log(operators);
-  //console.log(newExpression);
-  //for (var j = 0; j < operators.dataStore.length; ++j) {
-    //if ((operators.dataStore[j] == "*") || (operators.dataStore[j] == "/"))
-
-    //operands.push(operators.pop());
-  //}
-  //console.log(operands);
-}
-
-converter('1*2+3*2');
-
-
-// more
-
-function Stack() {
-  this.dataStore = [];
-  this.top = 0;
-  this.put = put;
-  this.pop = pop;
-  this.peek = peek;
-  this.clear = clear;
-  this.length = length;
-}
-function put(element) {
-  this.dataStore[this.top++] = element;
-}
-
-function peek() {
-  return this.dataStore[this.top-1];
-}
-
-function pop() {
-  return this.dataStore.shift();
-}
-
-function clear() {
-  this.top = 0;
-}
-
-function length() {
-  return this.top;
-}
-
-function hasHigherPriority(operand) {
-  if((operand == '*') || (operand == '/')) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function converter(expression) {
-  var s = new Stack;
-  var string = "";
-
-  for (var i = 0; i < expression.length; ++i) {
-    if (!(expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
-      string += expression[i]
-    }else {
-      while(s.dataStore.length != 0 && hasHigherPriority(s.pop())) {
-  
-        string += s.pop();       
-        s.pop();
-        
-      }
-      s.put(expression[i]);
-      
-    }
-   
-  }
-  //console.log(s);
-  //console.log(string);
-  console.log(s);
-  
-  while(s.dataStore.length != 0) {
-    console.log(s);
-    string += s.pop();
-    s.pop();
-  }
-  
-  return string;
-  //console.log(string);
-}
-
-converter('1+2+3*2');
-
