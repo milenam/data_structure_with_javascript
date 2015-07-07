@@ -378,7 +378,7 @@ function balancedBrackets(string) {
 
 }
 balancedBrackets("(6+4*31+(120/3");
-  
+
 // #2
 
 function Stack() {
@@ -424,35 +424,47 @@ function converter(expression) {
   var s = new Stack;
   var string = "";
 
-  for (var i = 0; i < expression.length; ++i) {
+  for (var i = 0; i < expression.length; i++) {
     if (!(expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
       string += expression[i]
-    }else if (expression[i].match(/["*:<>?\\/|+\-\[\]]/)){
+    } else if (expression[i].match(/["*:<>?\\/|+\-\[\]]/)){
       if (s.length() != 0 && hasHigherPrecedence(s.peek())) {
        string += s.peek();
-        
+       //s.pop();
+
+      } else if (s.length() != 0) {
+        string += s.peek();
+        s.pop();
+        s.push(expression[i]);
+
+      } else {
+        s.push(expression[i]);
       }
-      s.push(expression[i]);
-      
+      console.log(s.peek());
+
     } else {
        console.log('Hi');
     }
-   
+
   }
-  
+
   if(s.dataStore.length != 0) {
     console.log(s);
     string += s.peek();
     s.pop();
   }
   console.log(s);
-  
+
   return string;
 
 }
 
-converter('1*2-3');
-//converter('1-2*3');
+//converter('1*2-3'); // this one works
+//converter('1*3*2-7') // works
+//converter('1*3-2*7'); // doesn't work looses the minus
+converter('1*3*2+7-2') // doesn't work looses +
+
+
 
 // 3
 
@@ -495,7 +507,7 @@ function PDispenser(candies) {
   console.log(s);
   var temp = new Stack();
   //var yellow = "yellow";
-  
+
   console.log(s.dataStore);
   for (var j = 0; j < s.dataStore.length; ++j) {
       s.pop();
@@ -503,7 +515,7 @@ function PDispenser(candies) {
         temp.push(s.dataStore[j]);
     }
   }
-  
+
   console.log(temp.dataStore);
 
 }
