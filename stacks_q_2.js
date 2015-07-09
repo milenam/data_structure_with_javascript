@@ -44,24 +44,25 @@ function converter(expression) {
   for (var i = 0; i < expression.length; i++) {
     if (!(expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
       string += expression[i]
-    } else if (expression[i].match(/["*:<>?\\/|+\-\[\]]/)){
-      if (s.length() != 0 && hasHigherPrecedence(s.peek())) {
+    } else { //if (expression[i].match(/["*:<>?\\/|+\-\[\]]/)){
+      if (s.length() != 0) {
+       if (hasHigherPrecedence(s.peek())) {
        string += s.peek();
        //s.pop();
 
-      } else if (s.length() != 0) {
+      } else {
         string += s.peek();
         s.pop();
         s.push(expression[i]);
 
-      } else {
-        s.push(expression[i]);
-      }
+      } 
+     }
+     s.push(expression[i]);
       console.log(s.peek());
 
-    } else {
-       console.log('Hi');
-    }
+    } //else {
+       //console.log('Hi');
+    //}
 
   }
 
@@ -77,6 +78,6 @@ function converter(expression) {
 }
 
 //converter('1*2-3'); // this one works
-//converter('1*3*2-7') // works
-//converter('1*3-2*7'); // doesn't work looses the minus
-converter('1*3*2+7-2') // doesn't work looses +
+//converter('1*3*2-7*3') // works
+//converter('1*3-2*7'); // works
+converter('1*3*2+7-2') // works
