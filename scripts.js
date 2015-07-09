@@ -1,6 +1,6 @@
 // ARRAYS
 
-// Adding, removing elements to the array 
+// Adding, removing elements to the array
 
 var nums = [1,2,3,4,5]
 nums.push(6); // OR
@@ -20,55 +20,55 @@ nums[0] = newnum;
 
 //======== FIlTER
 
-function passing(num) { 
+function passing(num) {
 	return num >= 60;
 }
 
-var grades = []; 
+var grades = [];
 for(var i=0; i < 20; ++i) {
   grades[i] = Math.floor(Math.random() * 101); //(between 0 and 1 multiplied by 101)
 }
-var passGrades = grades.filter(passing); 
+var passGrades = grades.filter(passing);
 
 print("All grades: ");
 print(grades);
-print("Passing grades: "); 
+print("Passing grades: ");
 print(passGrades);
 
 // ======== filter with strings
 
 function afterc(str) {
   if (str.indexOf("cie") > -1) { // gives index == [] (positioning) of...
-    return true; 
+    return true;
   }
-  return false; 
+  return false;
 }
 
-var words = ["recieve","deceive","percieve","deceit","concieve"]; 
+var words = ["recieve","deceive","percieve","deceit","concieve"];
 var misspelled = words.filter(afterc);
-print(misspelled); 
+print(misspelled);
 
 // ======== two dimensional arrays
 
 Array.matrix = function(numrows, numcols, initial) { // Array.matrix sets numbeer of rows and columns and initial is the value of all elems in the array
-	var arr = []; 
+	var arr = [];
 	for(var i=0; i < numrows; ++i) {
-    var columns = []; 
+    var columns = [];
 	  for(var j=0; j < numcols; ++j){
 	    columns[j] = initial;
 	  }
     arr[i] = columns;
   }
-  return arr; 
+  return arr;
 }
 
-var nums = Array.matrix(5,5,0); 
+var nums = Array.matrix(5,5,0);
 print(nums[1][1]); // prints 0
-var names = Array.matrix(3,3,""); 
-names[1][2] = "Joe"; 
+var names = Array.matrix(3,3,"");
+names[1][2] = "Joe";
 print(names[1][2]); // displays "Joe"
 
-//example rows 
+//example rows
 
 var grades = [[89, 77, 78],[76, 82, 81],[91, 94, 89]]; // [89, 77, 78]
                                                        // [76, 82, 81]
@@ -88,7 +88,7 @@ for (var row = 0; row < grades.length; ++row) {
 
 // columns
 
-var grades = [[89, 77, 78],[76, 82, 81],[91, 94, 89]]; 
+var grades = [[89, 77, 78],[76, 82, 81],[91, 94, 89]];
 var total = 0;
 var average = 0.0;
 for (var col = 0; col < grades.length; ++col) {
@@ -100,9 +100,9 @@ for (var col = 0; col < grades.length; ++col) {
 	average = 0.0;
 }
 
-// jagged arrays 
+// jagged arrays
 
-var grades = [[89, 77],[76, 82, 81],[91, 94, 89, 99]]; 
+var grades = [[89, 77],[76, 82, 81],[91, 94, 89, 99]];
 var total = 0;
 var average = 0.0;
 for (var row = 0; row < grades.length; ++row) {
@@ -114,11 +114,11 @@ for (var row = 0; row < grades.length; ++row) {
   average = 0.0;
 }
 
-// Array of Objects 
+// Array of Objects
 
-function Point(x,y) { 
+function Point(x,y) {
 	this.x = x;
-  this.y = y; 
+  this.y = y;
 }
 
 function displayPts(arr) {
@@ -137,29 +137,29 @@ for (var i = 0; i < points.length; ++i) {
 
 // ----
 
-function weekTemps() { 
-	this.dataStore = []; 
-	this.add = add; 
+function weekTemps() {
+	this.dataStore = [];
+	this.add = add;
 	this.average = average;
 }
 
-function add(temp) { 
+function add(temp) {
 	this.dataStore.push(temp);
 }
 
 function average() {
 var total = 0;
 for (var i = 0; i < this.dataStore.length; ++i) {
-  total += this.dataStore[i]; 
+  total += this.dataStore[i];
 }
-  return total / this.dataStore.length; 
+  return total / this.dataStore.length;
 }
 
-// exercises 
+// exercises
 // 1
-function Grades() { 
-	this.dataStore = []; 
-	this.add = add; 
+function Grades() {
+	this.dataStore = [];
+	this.add = add;
 	this.average = average;
 }
 
@@ -183,21 +183,21 @@ var arr = ['start', 'sdfd', 'erfter', 'ertre', 'end'];
 print(arr);
 
 var n = arr.length;
-for (var i = n; i >= 0; --i) { 
-	arr[i] = arr[i-1]; 
+for (var i = n; i >= 0; --i) {
+	arr[i] = arr[i-1];
 	print(arr[i-1]);
-} 
+}
 
 // 3
 // TODO: write this in the prototypal pattern
 
 window.dataStore = new Array.matrix(4, 7, null);
-function weekTemps() { 
-  
-  this.add = add; 
+function weekTemps() {
+
+  this.add = add;
   this.average = average;
 
-} 
+}
 
 function add(temp, week, dayoftheweek) {
   window.dataStore[week][dayoftheweek] = temp;
@@ -206,9 +206,9 @@ function add(temp, week, dayoftheweek) {
 weekTemps.prototype.average = function() {
   var weektotal = 0;
 	  for (var i = 0; i < window.dataStore.length; ++i) {
-	  weektotal += window.dataStore[i]; 
+	  weektotal += window.dataStore[i];
   }
-  return weektotal / window.dataStore.length; 
+  return weektotal / window.dataStore.length;
 }
 var stat = new weekTemps();
 stat.add(53, 0, 2);
@@ -225,9 +225,9 @@ console.log(this.dataStore);
 
 // 4
 
-function Words() { 
-  this.dataStore = []; 
-  this.add = add; 
+function Words() {
+  this.dataStore = [];
+  this.add = add;
   this.displayWord = displayWord;
 }
 
@@ -255,12 +255,12 @@ randWord.displayWord();
 
 
 
-function weekTemps() { 
+function weekTemps() {
   this.dataStore = function() {
     Array.prototype.matrix(4, 7, null) // trying to copy an Array object into weekTemps
   };
 
-} 
+}
 
 
 
@@ -271,9 +271,9 @@ weekTemps.prototype.add = function(temp, week, dayoftheweek) {
 weekTemps.prototype.average = function() {
   var weektotal = 0;
     for (var i = 0; i < this.dataStore.length; ++i) {
-    weektotal += this.dataStore[i]; 
+    weektotal += this.dataStore[i];
   }
-  return weektotal / this.dataStore.length; 
+  return weektotal / this.dataStore.length;
 }
 var stat = new weekTemps();
 stat.add(53, 0, 2);
@@ -305,7 +305,7 @@ var Bar = function() {
     this.diffMeth = 5;
     this.add = function(val) {
         return (this.diffMeth + val + 4);
-    }   
+    }
 }
 
 var f = new Foo()
@@ -314,6 +314,210 @@ f.instMeth;
 var b = new Bar();
 b.diffMeth;
 
+// STACKS
+
+// #1
+function Stack() {
+  this.dataStore = [];
+  this.top = 0;
+  this.push = push;
+  this.pop = pop;
+  this.peek = peek;
+  this.clear = clear;
+  this.length = length;
+}
+function push(element) {
+  this.dataStore[this.top++] = element;
+}
+
+function peek() {
+  return this.dataStore[this.top-1];
+}
+
+function pop() {
+  return this.dataStore[--this.top];
+}
+
+function clear() {
+  this.top = 0;
+}
+
+function length() {
+  return this.top;
+}
+// TODO:
+// 1. if a closing prn is missing show the position of the openning prn
+// 2. If there two many closing prns, throw an error
+// 3. Show Bryce the state of a stack for each iteration of a loop
+// 4. Refactor the counter's out(dataStore.length)
+
+function balancedBrackets(string) {
+  var s = new Stack();
+  var counterO = 0;
+  var counterC = 0;
+
+  for (var i = 0; i < string.length; ++i) {
+    if (string[i] == "(") {
+      counterO++;
+      s.push(i);
+    }
+
+    if (string[i] == ")") {
+      counterC++;
+      s.pop(i);
+    }
+  }
+
+   if (counterC > counterO) {
+     console.log("you're missing open prn")
+   } else if (counterC < counterO) {
+
+   } else {
+     console.log('nothing is missing');
+   }
+
+}
+balancedBrackets("(6+4*31+(120/3");
+
+// #2
+
+function Stack() {
+  this.dataStore = [];
+  this.top = 0;
+  this.push = push;
+  this.pop = pop;
+  this.peek = peek;
+  this.clear = clear;
+  this.length = length;
+}
+function push(element) {
+  this.dataStore[this.top++] = element;
+}
+
+function peek() {
+  return this.dataStore[this.top-1];
+}
+
+function pop() {
+  return this.dataStore.shift();
+}
+
+function clear() {
+  this.top = 0;
+}
+
+function length() {
+  return this.top;
+}
+
+function hasHigherPrecedence(operand) {
+  if((operand == "*") || (operand == "/")) {
+    return true;
+  } else if ((operand == "-") || (operand == "+")){
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function converter(expression) {
+  var s = new Stack;
+  var string = "";
+
+  for (var i = 0; i < expression.length; i++) {
+    if (!(expression[i].match(/["*:<>?\\/|+\-\[\]]/))) {
+      string += expression[i]
+    } else if (expression[i].match(/["*:<>?\\/|+\-\[\]]/)){
+      if (s.length() != 0 && hasHigherPrecedence(s.peek())) {
+       string += s.peek();
+       //s.pop();
+
+      } else if (s.length() != 0) {
+        string += s.peek();
+        s.pop();
+        s.push(expression[i]);
+
+      } else {
+        s.push(expression[i]);
+      }
+      console.log(s.peek());
+
+    } else {
+       console.log('Hi');
+    }
+
+  }
+
+  if(s.dataStore.length != 0) {
+    console.log(s);
+    string += s.peek();
+    s.pop();
+  }
+  console.log(s);
+
+  return string;
+
+}
+
+//converter('1*2-3'); // this one works
+//converter('1*3*2-7') // works
+//converter('1*3-2*7'); // doesn't work looses the minus
+converter('1*3*2+7-2') // doesn't work looses +
 
 
 
+// 3
+
+function Stack() {
+  this.dataStore = [];
+  this.top = 0;
+  this.push = push;
+  this.pop = pop;
+  this.peek = peek;
+  this.clear = clear;
+  this.length = length;
+}
+function push(element) {
+  this.dataStore[this.top++] = element;
+}
+
+function peek() {
+  return this.dataStore[this.top-1];
+}
+
+function pop() {
+  return this.dataStore[--this.top];
+}
+
+function clear() {
+  this.top = 0;
+}
+
+function length() {
+  return this.top;
+}
+
+function PDispenser(candies) {
+  var s = new Stack();
+  var arrayOfCandies = candies.split(',');
+
+  for (var i = 0; i < arrayOfCandies.length; ++i) {
+      s.push(arrayOfCandies[i]);
+  }
+  console.log(s);
+  var temp = new Stack();
+  //var yellow = "yellow";
+
+  console.log(s.dataStore);
+  for (var j = 0; j < s.dataStore.length; ++j) {
+      s.pop();
+      if(s.dataStore[j] != "yellow") {
+        temp.push(s.dataStore[j]);
+    }
+  }
+
+  console.log(temp.dataStore);
+
+}
+
+PDispenser('yellow,red,white,yellow,red,blue');
