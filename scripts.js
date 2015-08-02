@@ -491,6 +491,9 @@ function LList() {
   this.display = display;
   this.findPrevious = findPrevious;
   this.remove = remove;
+  this.calcKilled = calcKilled;
+  this.createCircle = createCircle;
+  this.dataStore = 0;
 }
 function remove(item) {
   var prevNode = this.findPrevious(item);
@@ -529,13 +532,88 @@ function insert(newElement, item) {
   var current = this.find(item);
   newNode.next = current.next;
   current.next = newNode;
+  this.dataStore++;
+}
+
+function createCircle(n) {
+  counter = 0;
+  uniqueId = 0;
+  while (counter < n) {
+  //var newCurNode = new Node(firstPerson);
+   var newCurNode = this.head;
+  //console.log(newCurNode.element);
+   this.insert("person" + uniqueId++, newCurNode.element);
+   newCurNode = newCurNode.next.element;
+   counter++;
+  }
+  
+  //return counter;
+}
+
+function calcKilled(m) {
+  counter = 0;
+  var newCurNode = this.head
+  while (newCurNode != null) { 
+    newCurNode = newCurNode.next;
+    counter++;
+    if (counter%m == 0) {
+      //newCurNode = newCurNode.next;
+      this.remove(newCurNode);
+      
+      ///console.log('hi');
+    }
+    console.log('hi');
+    //var newCurNode = this.head;
+    //newCurNode = newCurNode.next;
+    console.log(newCurNode);
+ 
+  }
+  
+  //if (counter == m) {
+    //this.remove(newCurNode);
+  //}
 }
 
 
-var cities = new LList();
-cities.insert("Conway", "head");
-cities.insert("Russellville", "Conway");
-cities.insert("Carlisle", "Russellville");
-cities.insert("Alma", "Carlisle");
+var people = new LList();
+//people.insert('person1', 'head');
+people.createCircle(40);
+people.calcKilled(3);
+console.log(people);
 
-cities.display();
+
+//
+// function calcKilled(m) {
+//   counter = 0;
+  
+//   while (this.head != null) {
+//     var headNode = this.find("head");
+//     headNode = headNode.next;
+//     //console.log(headNode, "hi");
+//     //var headNode = this.find("head");
+//     //var newCurNode = headNode;
+//     //console.log(newCurNode);
+//     var newCurNode = headNode;
+//     //console.log(newCurNode);
+//     if (counter%m == 0){
+//       console.log(newCurNode);
+//       console.log(counter);
+//       //newVar = newCurNode.next.next;
+//       this.remove(newCurNode.element);
+//     } 
+    
+//     counter++;
+//     //console.log('hi');
+//     //var newCurNode = this.head;
+//     //newCurNode = newCurNode.next;
+//     //console.log(newCurNode);
+//     //return newCurNode.element;
+    
+//   }
+//   //console.log(newCurNode);
+  
+//   //return newCurNode;
+//   //if (counter == m) {
+//     //this.remove(newCurNode);
+//   //}
+// }
