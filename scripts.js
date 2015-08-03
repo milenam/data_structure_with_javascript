@@ -52,20 +52,20 @@ function insert(newElement, item) {
   current.next = newNode;
 }
 
-function advance(item, n) {  
+function advance(item, n) {
   var counter = 0;
   while (counter < n) {
     var items = this.find(item);
     if (items.next != null) {
       var current = items.next.element
-      
+
     } else {
       console.log("can't move element, the number you entered exceeded the number of elements in a list")
     }
-    
+
     this.remove(item);
       this.insert(item, current);
-      counter++;   
+      counter++;
   }
 }
 
@@ -123,22 +123,22 @@ function find(item) {
   console.log(currNode);
 }
 
-function insert(newElement, item) { 
-  var newNode = new Node(newElement); 
-  var current = this.find(item); 
-  newNode.next = current.next; 
-  newNode.previous = current; 
+function insert(newElement, item) {
+  var newNode = new Node(newElement);
+  var current = this.find(item);
+  newNode.next = current.next;
+  newNode.previous = current;
   current.next = newNode;
 }
 
-function insertAfter(newElement, item) { 
-  var newNode = new Node(newElement); 
-  var current = this.find(item); 
+function insertAfter(newElement, item) {
+  var newNode = new Node(newElement);
+  var current = this.find(item);
 
-  newNode.previous = current.previous; 
-  newNode.next = current; 
+  newNode.previous = current.previous;
+  newNode.next = current;
   if(newNode.previous != null) {
-    newNode.previous.next = newNode;  
+    newNode.previous.next = newNode;
   } else {
     console.log("can't move element, the number you entered exceeded the number of elements in a list")
   }
@@ -148,14 +148,14 @@ function insertAfter(newElement, item) {
 function remove(item) {
   var currNode = this.find(item);
   if (!(currNode.next == null)) {
-    currNode.previous.next = currNode.next; 
-    currNode.next.previous = currNode.previous; 
+    currNode.previous.next = currNode.next;
+    currNode.next.previous = currNode.previous;
     currNode.next = null;
     currNode.previous = null;
   }
 }
 
-function back(item, n) {  
+function back(item, n) {
   var counter = 0;
   while (counter < n) {
     var items = this.find(item);
@@ -218,19 +218,19 @@ function find(item) {
   console.log(currNode);
 }
 
-function insert(newElement, item) { 
-  var newNode = new Node(newElement); 
-  var current = this.find(item); 
-  newNode.next = current.next; 
-  newNode.previous = current; 
+function insert(newElement, item) {
+  var newNode = new Node(newElement);
+  var current = this.find(item);
+  newNode.next = current.next;
+  newNode.previous = current;
   current.next = newNode;
 }
 
 function remove(item) {
   var currNode = this.find(item);
   if (!(currNode.next == null)) {
-    currNode.previous.next = currNode.next; 
-    currNode.next.previous = currNode.previous; 
+    currNode.previous.next = currNode.next;
+    currNode.next.previous = currNode.previous;
     currNode.next = null;
     currNode.previous = null;
   }
@@ -297,20 +297,20 @@ cities.display();
 //   console.log(currNode);
 // }
 
-// function insert(newElement, item) { 
+// function insert(newElement, item) {
 //   var arrOfGrades = newElement.split(',');
-//   var newNode = new Node(newElement, arrOfGrades); 
-//   var current = this.find(item); 
-//   newNode.next = current.next; 
-//   newNode.previous = current; 
+//   var newNode = new Node(newElement, arrOfGrades);
+//   var current = this.find(item);
+//   newNode.next = current.next;
+//   newNode.previous = current;
 //   current.next = newNode;
 // }
 
 // function remove(item) {
 //   var currNode = this.find(item);
 //   if (!(currNode.next == null)) {
-//     currNode.previous.next = currNode.next; 
-//     currNode.next.previous = currNode.previous; 
+//     currNode.previous.next = currNode.next;
+//     currNode.next.previous = currNode.previous;
 //     currNode.next = null;
 //     currNode.previous = null;
 //   }
@@ -365,19 +365,19 @@ function find(item) {
   console.log(currNode);
 }
 
-function insert(newElement, item) { 
-  var newNode = new Node(newElement); 
-  var current = this.find(item); 
-  newNode.next = current.next; 
-  newNode.previous = current; 
+function insert(newElement, item) {
+  var newNode = new Node(newElement);
+  var current = this.find(item);
+  newNode.next = current.next;
+  newNode.previous = current;
   current.next = newNode;
 }
 
 function remove(item) {
   var currNode = this.find(item);
   if (!(currNode.next == null)) {
-    currNode.previous.next = currNode.next; 
-    currNode.next.previous = currNode.previous; 
+    currNode.previous.next = currNode.next;
+    currNode.next.previous = currNode.previous;
     currNode.next = null;
     currNode.previous = null;
   }
@@ -440,19 +440,19 @@ function find(item) {
   console.log(currNode);
 }
 
-function insert(newElement, item) { 
-  var newNode = new Node(newElement); 
-  var current = this.find(item); 
-  newNode.next = current.next; 
-  newNode.previous = current; 
+function insert(newElement, item) {
+  var newNode = new Node(newElement);
+  var current = this.find(item);
+  newNode.next = current.next;
+  newNode.previous = current;
   current.next = newNode;
 }
 
 function remove(item) {
   var currNode = this.find(item);
   if (!(currNode.next == null)) {
-    currNode.previous.next = currNode.next; 
-    currNode.next.previous = currNode.previous; 
+    currNode.previous.next = currNode.next;
+    currNode.next.previous = currNode.previous;
     currNode.next = null;
     currNode.previous = null;
   }
@@ -516,7 +516,7 @@ function display() {
               !(currNode.next.element == "head")) {
           console.log(currNode.next.element);
           currNode = currNode.next;
-   } 
+   }
 }
 
 function find(item) {
@@ -537,38 +537,47 @@ function insert(newElement, item) {
 
 function createCircle(n) {
   counter = 0;
-  uniqueId = 0;
+  uniqueId = 1;
   while (counter < n) {
   //var newCurNode = new Node(firstPerson);
    var newCurNode = this.head;
   //console.log(newCurNode.element);
+
    this.insert("person" + uniqueId++, newCurNode.element);
    newCurNode = newCurNode.next.element;
    counter++;
   }
-  
+
   //return counter;
 }
 
 function calcKilled(m) {
   counter = 0;
-  var newCurNode = this.head
-  while (newCurNode != null) { 
-    newCurNode = newCurNode.next;
+  var newCurNode = this.find('head');
+  while ((newCurNode != null) && (this.dataStore != 2)) {
+    if (counter != 0) {
+      newCurNode = newCurNode.next;
+    } else {
+      newCurNode = newCurNode;
+    }
+
     counter++;
     if (counter%m == 0) {
-      //newCurNode = newCurNode.next;
-      this.remove(newCurNode);
-      
+      //newCurNode = newCurNode.next;\
+      console.log(counter);
+      //this.remove(newCurNode);
+      console.log(newCurNode.element);
+      this.remove(newCurNode.element);
+      this.dataStore--;
       ///console.log('hi');
     }
-    console.log('hi');
+    //console.log('hi');
     //var newCurNode = this.head;
     //newCurNode = newCurNode.next;
-    console.log(newCurNode);
- 
+    //console.log(newCurNode);
+
   }
-  
+
   //if (counter == m) {
     //this.remove(newCurNode);
   //}
@@ -577,15 +586,17 @@ function calcKilled(m) {
 
 var people = new LList();
 //people.insert('person1', 'head');
-people.createCircle(40);
-people.calcKilled(3);
+people.createCircle(10);
+people.calcKilled(5);
 console.log(people);
+
+
 
 
 //
 // function calcKilled(m) {
 //   counter = 0;
-  
+
 //   while (this.head != null) {
 //     var headNode = this.find("head");
 //     headNode = headNode.next;
@@ -600,18 +611,18 @@ console.log(people);
 //       console.log(counter);
 //       //newVar = newCurNode.next.next;
 //       this.remove(newCurNode.element);
-//     } 
-    
+//     }
+
 //     counter++;
 //     //console.log('hi');
 //     //var newCurNode = this.head;
 //     //newCurNode = newCurNode.next;
 //     //console.log(newCurNode);
 //     //return newCurNode.element;
-    
+
 //   }
 //   //console.log(newCurNode);
-  
+
 //   //return newCurNode;
 //   //if (counter == m) {
 //     //this.remove(newCurNode);
