@@ -493,7 +493,7 @@ function LList() {
   this.remove = remove;
   this.calcKilled = calcKilled;
   this.createCircle = createCircle;
-  this.dataStore = 0;
+  this.dataStore = 1;
 }
 function remove(item) {
   var prevNode = this.findPrevious(item);
@@ -539,56 +539,37 @@ function createCircle(n) {
   counter = 0;
   uniqueId = 1;
   while (counter < n) {
-  //var newCurNode = new Node(firstPerson);
    var newCurNode = this.head;
-  //console.log(newCurNode.element);
 
    this.insert("person" + uniqueId++, newCurNode.element);
    newCurNode = newCurNode.next.element;
    counter++;
   }
-
-  //return counter;
 }
 
 function calcKilled(m) {
   counter = 0;
   var newCurNode = this.find('head');
-  while ((newCurNode != null) && (this.dataStore != 2)) {
-    if (counter != 0) {
-      newCurNode = newCurNode.next;
-    } else {
-      newCurNode = newCurNode;
-    }
+  while (this.dataStore > 3) {
 
-    counter++;
-    if (counter%m == 0) {
-      //newCurNode = newCurNode.next;\
-      console.log(counter);
-      //this.remove(newCurNode);
-      console.log(newCurNode.element);
+    newCurNode = newCurNode.next;
+
+    if(newCurNode.element != 'head')
+     counter++;
+    else
+      console.log('skipping the head')
+    if ((counter%m == 0) && (newCurNode.element != 'head')) {
       this.remove(newCurNode.element);
       this.dataStore--;
-      ///console.log('hi');
     }
-    //console.log('hi');
-    //var newCurNode = this.head;
-    //newCurNode = newCurNode.next;
-    //console.log(newCurNode);
-
   }
-
-  //if (counter == m) {
-    //this.remove(newCurNode);
-  //}
 }
 
 
 var people = new LList();
-//people.insert('person1', 'head');
-people.createCircle(10);
+people.createCircle(12);
 people.calcKilled(5);
-console.log(people);
+console.log(people.head.next.element, ", ", people.head.next.next.element);
 
 
 
