@@ -554,9 +554,9 @@ function calcKilled(m) {
 
     newCurNode = newCurNode.next;
 
-    if(newCurNode.element != 'head')
-     counter++;
-    else
+    if(newCurNode.element != 'head') {
+      counter++;
+    } 
       console.log('skipping the head')
     if ((counter%m == 0) && (newCurNode.element != 'head')) {
       this.remove(newCurNode.element);
