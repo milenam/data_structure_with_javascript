@@ -101,3 +101,81 @@ pbook.showOnly("Raymond Williams");
 pbook.remove("Raymond Williams");
 //pbook.clear();
 pbook.showAll();
+
+//2
+
+function Dictionary() {
+  this.add = add;
+  this.datastore = new Array();
+  this.length = 0;
+  this.find = find;
+  this.remove = remove;
+  this.showAll = showAll;
+  this.count = count;
+  this.clear = clear;
+  this.numberOfTimes = numberOfTimes;
+}
+
+function add(key, value) {
+  this.datastore[key] = value;
+  this.length++;
+}
+
+function find(key) {
+  return this.datastore[key];
+}
+
+function remove(key) {
+  delete this.datastore[key];
+}
+
+function showAll() {
+  for (var key in this.datastore) {
+  console.log(key + " -> " + this.datastore[key]);
+  }
+}
+
+
+function count() {
+  var n = 0;
+  for (var key in Object.keys(this.datastore)) {
+    ++n;
+  }
+
+  return n;
+
+}
+  function clear() {
+    for (var key in this.datastore) {
+      delete this.datastore[key];
+  }
+}
+
+function numberOfTimes(string) {
+  var textStr = string.split(' ');
+  var tempArr = [];
+  var counter = 1;
+  for (var i = 0; i < textStr.length; i++) {
+
+
+    if (tempArr.indexOf(textStr[i]) == -1) {
+      tempArr.push(textStr[i]);
+      console.log('more', textStr[i]);
+      counter = 1;
+    } else {
+      //console.log('less', textStr[i]);
+      console.log('more than one', textStr[i]);
+      counter++;
+
+    }
+
+    this.add(textStr[i], counter);
+  }
+}
+
+
+var text = new Dictionary();
+text.numberOfTimes("the brown fox jumped the blue fox");
+console.log(text);
+
+
