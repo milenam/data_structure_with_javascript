@@ -102,7 +102,7 @@ pbook.remove("Raymond Williams");
 //pbook.clear();
 pbook.showAll();
 
-//2
+// #2 and #3
 
 function Dictionary() {
   this.add = add;
@@ -152,19 +152,18 @@ function count() {
 }
 
 function numberOfTimes(string) {
-  var textStr = string.split(' ');
-  var tempArr = [];
-  var counter = 1;
+  var givenStr = string.split(' ');
+  var textStr = givenStr.sort();
+  var current = "";
+  var counter = 0;
   for (var i = 0; i < textStr.length; i++) {
 
 
-    if (tempArr.indexOf(textStr[i]) == -1) {
-      tempArr.push(textStr[i]);
-      console.log('more', textStr[i]);
+    if (textStr[i] != current) {
+      current = textStr[i];
       counter = 1;
     } else {
-      //console.log('less', textStr[i]);
-      console.log('more than one', textStr[i]);
+
       counter++;
 
     }
@@ -175,7 +174,7 @@ function numberOfTimes(string) {
 
 
 var text = new Dictionary();
-text.numberOfTimes("the brown fox jumped the blue fox");
+text.numberOfTimes("the brown fox over blue jumped blue over the blue the fox");
 console.log(text);
 
 
