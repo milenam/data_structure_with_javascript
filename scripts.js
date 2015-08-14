@@ -234,6 +234,67 @@ names.add("Raymond");
 
 names.show();
 
+// # 3 and 4
+
+function Set() {
+  this.dataStore = [];
+  this.add = add;
+  this.show = show;
+  this.higher = higher;
+  this.lower = lower;
+}
+
+function add(data) {
+  if (this.dataStore.indexOf(data) < 0) {
+    this.dataStore.push(data);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+function show() {
+  return this.dataStore.sort();
+}
+
+
+function higher(number) {
+  var tempArr = [];
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    if (this.dataStore[i] > number) {
+      tempArr.push(this.dataStore[i]);
+    }
+  }
+  
+  var n = Math.min.apply(Math,tempArr);
+  console.log("the least element in the set > than the given element is " + n);
+}
+
+function lower(number) {
+  var tempArr = [];
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    if (this.dataStore[i] < number) {
+      tempArr.push(this.dataStore[i]);
+    }
+  }
+  
+  var n = Math.max.apply(Math,tempArr);
+  console.log("the greatest element in the set < than the given element is " + n);
+}
+
+
+var names = new Set();
+names.add(2);
+names.add(3);
+names.add(1);
+names.add(6);
+names.add(17);
+names.higher(3);
+names.lower(17);
+
+names.show();
+
 ////////////////
 
 function add(data) {
@@ -263,3 +324,5 @@ function add(data) {
   }
   console.log(this.dataStore.head);
 }
+
+
