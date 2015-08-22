@@ -405,6 +405,31 @@ function Graph(v) {
 }
 
 //TODO: HANDLE CREATION
+function Vertex(label) {
+  this.label = label;
+}
+
+function Graph(v) {
+  this.vertices = v;
+  this.edges = 0;
+  this.adj = [];
+  for (var i = 0; i < this.vertices; ++i) {
+    this.adj[i] = [];
+    //this.adj[i].push("");
+  }
+  this.addEdge = addEdge;
+  this.toString = toString;
+  this.showGraph = showGraph;
+  this.marked = [];
+  for (var i = 0; i < this.vertices; ++i) {
+    this.marked[i] = false;
+  }
+  this.dfs = dfs;
+  this.bfs = bfs;
+  this.edgeTo = [];
+  this.pathTo = pathTo;
+  this.hasPathTo = hasPathTo;
+}
 function addEdge(v,w) {
   m = this.adj[this.c++];
   m.push(w);
@@ -498,6 +523,161 @@ g.addEdge("Chelsea","Knightsbridge");
 g.addEdge("Chelsea","Fulham");
 g.addEdge("Fulham","Buttersea");
 var vertex = "Buttersea";
+var paths = g.pathTo(vertex);
+while (paths.length > 0) {
+  if (paths.length > 1) {
+    console.log(paths.pop() + '-');
+  } else {
+    console.log(paths.pop());
+  }
+}
+
+// still figuring out number 4 //TODO: HANDLE CREATION
+//TODO: if (this.adj[c[1]].indexOf(source) != 1) && (this.adj[c[1]].indexOf(v) != 1)
+function Vertex(label) {
+  this.label = label;
+}
+
+function Graph(v) {
+  this.vertices = v;
+  this.edges = 0;
+  this.adj = [];
+  for (var i = 0; i < this.vertices; ++i) {
+    this.adj[i] = [];
+    //this.adj[i].push("");
+  }
+  this.addEdge = addEdge;
+  this.toString = toString;
+  this.showGraph = showGraph;
+  this.marked = [];
+  for (var i = 0; i < this.vertices; ++i) {
+    this.marked[i] = false;
+  }
+  this.dfs = dfs;
+  this.bfs = bfs;
+  this.edgeTo = [];
+  this.pathTo = pathTo;
+  this.hasPathTo = hasPathTo;
+  this.getIndex = getIndex;
+}
+
+function addEdge(v,w) {
+  this.adj[this.edges].push(w);
+  console.log(this.adj);
+  this.adj[this.edges].push(v); 
+  this.edges++;
+}
+
+function showGraph() {
+  for (var i = 0; i < this.vertices; ++i) {
+    console.log(i + " -> ");
+    for (var j = 0; j < this.vertices; ++j) {
+      if (this.adj[i][j] != undefined) {
+        console.log(this.adj[i][j] + ' ');
+      }
+    }
+  }
+}
+
+function dfs(v) {
+  this.marked[v] = true;
+  if (this.adj[v] != undefined) {
+        console.log("dfs Visited vertex: " + v);
+     }
+  for each (var w in this.adj[v]) {
+    if (!this.marked[w]) {
+    this.dfs(w);
+    }
+  }
+}
+
+function bfs(s) {
+  var queue = [];
+  this.marked[s] = true;
+  queue.push(s); // add to back of queue
+  while (queue.length > 0) {
+    var v = queue.shift(); // remove from front of queue
+    if (v != undefined) {
+      console.log("bfs Visited vertex: " + v);
+    }
+
+    for each (var w in this.adj[v]) {
+      if (!this.marked[w]) {
+        this.edgeTo[w] = v;
+        this.marked[w] = true;
+        queue.push(w);
+      }
+    }
+  }
+}
+
+function getIndex(ele, source) {
+  for (var m = 0; m < this.adj.length; m++) {
+    if(this.adj[m].indexOf(ele) != -1) {
+      if (this.adj[m].indexOf(ele) < this.adj[m].indexOf(source)) {
+        return [true, this.adj.indexOf(this.adj[m])];
+      } else {
+        return [false, this.adj.indexOf(this.adj[m])];
+      }
+    }
+  }
+}
+
+function pathTo(v) {
+  var source = "Knightsbridge";
+  var index;
+  var path = [];
+  path.push(v);
+  var c = this.getIndex(v, source);
+  //TODO: if (this.adj[c[1]].indexOf(source) != 1) && (this.adj[c[1]].indexOf(v) != 1)
+
+  if (c[0] == false) {
+    //TODO: handle increment case when it's false
+    for (var i = c[1]; i > 0; i--) {
+      //console.log(i+'path',this.adj[i][path.indexOf(this.adj[i][w])]);
+      console.log('cities',i, this.adj[i].indexOf(source));
+      if (path.indexOf(this.adj[i][w]) != -1){
+      //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+        path.push(source);       
+
+      } else {
+        if (path.indexOf(source) == -1){
+          for (var w in this.adj[i]) {
+            console.log(i, this.adj[i][w]) 
+            if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
+              path.push(source);
+            } else {
+                if (path.indexOf(this.adj[i][w]) == -1) {
+                  path.push(this.adj[i][w]);
+                  //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+              } 
+            }
+          }
+        }
+      }
+    //} else {
+      
+    //}
+ 
+    }
+  }
+  //path.push(source);
+  console.log(path);
+  return path;
+}
+
+function hasPathTo(v) {
+  return this.marked[v];
+}
+
+g = new Graph(5);
+g.addEdge("Kensington","Knightsbridge");
+g.addEdge("Kensington","Chelsea");
+g.addEdge("Chelsea","Knightsbridge");
+g.addEdge("Chelsea","Fulham");
+g.addEdge("Fulham","Buttersea");
+//g.dfs("Fulham");
+var vertex = "Kensington";
 var paths = g.pathTo(vertex);
 while (paths.length > 0) {
   if (paths.length > 1) {
