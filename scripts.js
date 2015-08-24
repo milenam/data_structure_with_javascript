@@ -1,4 +1,5 @@
 // FINDING SHORTEST PATH
+//http://www.syncano.com/data-structures-in-javascript/
 function Vertex(label) {
   this.label = label;
 }
@@ -564,7 +565,7 @@ function Graph(v) {
 function addEdge(v,w) {
   this.adj[this.edges].push(w);
   console.log(this.adj);
-  this.adj[this.edges].push(v); 
+  this.adj[this.edges].push(v);
   this.edges++;
 }
 
@@ -638,28 +639,479 @@ function pathTo(v) {
       console.log('cities',i, this.adj[i].indexOf(source));
       if (path.indexOf(this.adj[i][w]) != -1){
       //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
-        path.push(source);       
+        path.push(source);
 
       } else {
         if (path.indexOf(source) == -1){
           for (var w in this.adj[i]) {
-            console.log(i, this.adj[i][w]) 
+            console.log(i, this.adj[i][w])
             if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
               path.push(source);
             } else {
                 if (path.indexOf(this.adj[i][w]) == -1) {
                   path.push(this.adj[i][w]);
                   //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
-              } 
+              }
             }
           }
         }
       }
     //} else {
-      
+
     //}
- 
+
     }
+  }
+  //path.push(source);
+  console.log(path);
+  return path;
+}
+
+function hasPathTo(v) {
+  return this.marked[v];
+}
+
+g = new Graph(5);
+g.addEdge("Kensington","Knightsbridge");
+g.addEdge("Kensington","Chelsea");
+g.addEdge("Chelsea","Knightsbridge");
+g.addEdge("Chelsea","Fulham");
+g.addEdge("Fulham","Buttersea");
+//g.dfs("Fulham");
+var vertex = "Kensington";
+var paths = g.pathTo(vertex);
+while (paths.length > 0) {
+  if (paths.length > 1) {
+    console.log(paths.pop() + '-');
+  } else {
+    console.log(paths.pop());
+  }
+}
+
+
+
+////////////////////
+
+else {
+      for (var i = c[1]; i < this.adj.length; i++) {
+        console.log('c',c[1]);
+        console.log('cities',i, this.adj[i].indexOf(source));
+        if (path.indexOf(this.adj[i][w]) != -1){
+        //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+          path.push(source);
+
+        } else {
+          if (path.indexOf(source) == -1){
+            for (var w in this.adj[i]) {
+              console.log('i',i, this.adj[i][w])
+              if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
+                path.push(source);
+              } else {
+                  if (path.indexOf(this.adj[i][w]) == -1) {
+                    path.push(this.adj[i][w]);
+                    //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+                }
+              }
+            }
+          }
+        }
+      }
+
+
+//////////////////////
+
+else {
+            for (var w in this.adj[i]) {
+              console.log('index: ',path.indexOf(this.adj[i][w]), this.adj[i][w]);
+              console.log('i',i, this.adj[i][w])
+              if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) != -1)) {
+                //path.push(this.adj[i][w]);
+         //       path.push(source);
+
+              } else {
+                  if ((path.indexOf(this.adj[i][w]) == -1) && (this.adj[i][w] != source)) {
+                    path.push(this.adj[i][w]);
+
+                    //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+                }
+
+
+              }
+            }
+
+        }
+        //path.push(source);
+      }
+      //path.push(source);
+    }
+  }
+
+
+  //////////
+  //TODO: if (this.adj[c[1]].indexOf(source) != 1) && (this.adj[c[1]].indexOf(v) != 1)
+function Vertex(label) {
+  this.label = label;
+}
+
+function Graph(v) {
+  this.vertices = v;
+  this.edges = 0;
+  this.adj = [];
+  for (var i = 0; i < this.vertices; ++i) {
+    this.adj[i] = [];
+    //this.adj[i].push("");
+  }
+  this.addEdge = addEdge;
+  this.toString = toString;
+  this.showGraph = showGraph;
+  this.marked = [];
+  for (var i = 0; i < this.vertices; ++i) {
+    this.marked[i] = false;
+  }
+  this.dfs = dfs;
+  this.bfs = bfs;
+  this.edgeTo = [];
+  this.pathTo = pathTo;
+  this.hasPathTo = hasPathTo;
+  this.getIndex = getIndex;
+}
+
+function addEdge(v,w) {
+  this.adj[this.edges].push(w);
+  console.log(this.adj);
+  this.adj[this.edges].push(v);
+  this.edges++;
+}
+
+function showGraph() {
+  for (var i = 0; i < this.vertices; ++i) {
+    console.log(i + " -> ");
+    for (var j = 0; j < this.vertices; ++j) {
+      if (this.adj[i][j] != undefined) {
+        console.log(this.adj[i][j] + ' ');
+      }
+    }
+  }
+}
+
+function dfs(v) {
+  this.marked[v] = true;
+  if (this.adj[v] != undefined) {
+        console.log("dfs Visited vertex: " + v);
+     }
+  for each (var w in this.adj[v]) {
+    if (!this.marked[w]) {
+    this.dfs(w);
+    }
+  }
+}
+
+function bfs(s) {
+  var queue = [];
+  this.marked[s] = true;
+  queue.push(s); // add to back of queue
+  while (queue.length > 0) {
+    var v = queue.shift(); // remove from front of queue
+    if (v != undefined) {
+      console.log("bfs Visited vertex: " + v);
+    }
+
+    for each (var w in this.adj[v]) {
+      if (!this.marked[w]) {
+        this.edgeTo[w] = v;
+        this.marked[w] = true;
+        queue.push(w);
+      }
+    }
+  }
+}
+
+function getIndex(ele, source) {
+  var e;
+  var s;
+  var tempArrE = [];
+  var tempArrS = [];
+  for (var m = 0; m < this.adj.length; m++) {
+    if(this.adj[m].indexOf(ele) != -1) {
+      e = this.adj.indexOf(this.adj[m]);
+      tempArrE.push(e);
+      //console.log(m,e);
+    } else if(this.adj[m].indexOf(source) != -1) {
+      s = this.adj.indexOf(this.adj[m]);
+      tempArrS.push(s);
+      //console.log(m,s);
+
+    } else {
+    }
+  }
+  console.log(tempArrE[0],tempArrS[0]);
+  if (tempArrE[0] < tempArrS[0]) {
+    return [true, tempArrE[1], tempArrS[0]];
+  } else {
+    return [false, tempArrE[0]]
+  }
+}
+
+function pathTo(v) {
+  var source = "Buttersea";
+  var index;
+  var path = [];
+  path.push(v);
+  var c = this.getIndex(v, source);
+  if ((this.adj[c[1]].indexOf(source) != -1) && (this.adj[c[1]].indexOf(v) != -1)) {
+    path.push(source);
+  } else {
+    console.log(c[0]);
+    if (c[0] == false) {
+      //TODO: handle increment case when it's false
+      for (var i = c[1]; i > 0; i--) {
+        //console.log(i+'path',this.adj[i][path.indexOf(this.adj[i][w])]);
+        //console.log('cities',i, this.adj[i].indexOf(source));
+        //if (path.indexOf(this.adj[i][w]) != -1){
+        //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+          //path.push(source);
+
+        //} else {
+          if (path.indexOf(source) == -1){
+            for (var w in this.adj[i]) {
+              //console.log(i, this.adj[i][w])
+              if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
+                path.push(source);
+              } else {
+                  if (path.indexOf(this.adj[i][w]) == -1) {
+                    path.push(this.adj[i][w]);
+                    //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+                  } else {
+                    path.splice(1, 1)
+                  }
+              }
+            //}
+          }
+        }
+      }
+    } else {
+      console.log('indexx', c[2])
+      for (var i = c[2]; i > 0; i--) {
+        console.log('c',c[2],c[1]);
+        console.log('cities',i, this.adj[i].indexOf(source));
+
+          if (path.indexOf(source) == -1){
+            for (var w in this.adj[i]) {
+              console.log('i',i, this.adj[i][w])
+              if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
+                //path.push(source);
+              }
+                  if (path.indexOf(this.adj[i][w]) == -1) {
+                    path.push(this.adj[i][w]);
+                    //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+
+              }
+
+          }
+        }
+      }
+    }
+  }
+  //path.push(source);
+  console.log(path);
+  return path;
+}
+
+function hasPathTo(v) {
+  return this.marked[v];
+}
+
+g = new Graph(5);
+g.addEdge("Kensington","Knightsbridge");
+g.addEdge("Kensington","Chelsea");
+g.addEdge("Chelsea","Knightsbridge");
+g.addEdge("Chelsea","Fulham");
+g.addEdge("Fulham","Buttersea");
+//g.dfs("Fulham");
+var vertex = "Kensington";
+var paths = g.pathTo(vertex);
+while (paths.length > 0) {
+  if (paths.length > 1) {
+    console.log(paths.pop() + '-');
+  } else {
+    console.log(paths.pop());
+  }
+}
+
+
+//THIS ONE:
+
+//TODO: handle where to push v
+function Vertex(label) {
+  this.label = label;
+}
+
+function Graph(v) {
+  this.vertices = v;
+  this.edges = 0;
+  this.adj = [];
+  for (var i = 0; i < this.vertices; ++i) {
+    this.adj[i] = [];
+    //this.adj[i].push("");
+  }
+  this.addEdge = addEdge;
+  this.toString = toString;
+  this.showGraph = showGraph;
+  this.marked = [];
+  for (var i = 0; i < this.vertices; ++i) {
+    this.marked[i] = false;
+  }
+  this.dfs = dfs;
+  this.bfs = bfs;
+  this.edgeTo = [];
+  this.pathTo = pathTo;
+  this.hasPathTo = hasPathTo;
+  this.getIndex = getIndex;
+}
+
+function addEdge(v,w) {
+  this.adj[this.edges].push(w);
+  console.log(this.adj);
+  this.adj[this.edges].push(v);
+  this.edges++;
+}
+
+function showGraph() {
+  for (var i = 0; i < this.vertices; ++i) {
+    console.log(i + " -> ");
+    for (var j = 0; j < this.vertices; ++j) {
+      if (this.adj[i][j] != undefined) {
+        console.log(this.adj[i][j] + ' ');
+      }
+    }
+  }
+}
+
+function dfs(v) {
+  this.marked[v] = true;
+  if (this.adj[v] != undefined) {
+        console.log("dfs Visited vertex: " + v);
+     }
+  for each (var w in this.adj[v]) {
+    if (!this.marked[w]) {
+    this.dfs(w);
+    }
+  }
+}
+
+function bfs(s) {
+  var queue = [];
+  this.marked[s] = true;
+  queue.push(s); // add to back of queue
+  while (queue.length > 0) {
+    var v = queue.shift(); // remove from front of queue
+    if (v != undefined) {
+      console.log("bfs Visited vertex: " + v);
+    }
+
+    for each (var w in this.adj[v]) {
+      if (!this.marked[w]) {
+        this.edgeTo[w] = v;
+        this.marked[w] = true;
+        queue.push(w);
+      }
+    }
+  }
+}
+
+function getIndex(ele, source) {
+  var e;
+  var s;
+  var tempArrE = [];
+  var tempArrS = [];
+  for (var m = 0; m < this.adj.length; m++) {
+    if(this.adj[m].indexOf(ele) != -1) {
+      e = this.adj.indexOf(this.adj[m]);
+      tempArrE.push(e);
+      //console.log(m,e);
+    } else if(this.adj[m].indexOf(source) != -1) {
+      s = this.adj.indexOf(this.adj[m]);
+      tempArrS.push(s);
+      //console.log(m,s);
+
+    } else {
+    }
+  }
+  console.log(tempArrE,tempArrS);
+  if (tempArrE[0] < tempArrS[0]) {
+    return [true, tempArrE[1], tempArrS[0]];
+  } else {
+    return [false, tempArrE[0]]
+  }
+}
+
+function pathTo(v) {
+  var source = "Buttersea";
+  var index;
+  var path = [];
+  var c = this.getIndex(v, source);
+  path.push(v);
+  if ((this.adj[c[1]].indexOf(source) != -1) && (this.adj[c[1]].indexOf(v) != -1)) {
+    path.push(source);
+  } else {
+    console.log(c[0]);
+    if (c[0] == false) {
+
+      //TODO: handle increment case when it's false
+      for (var i = c[1]; i > 0; i--) {
+        //console.log(i+'path',this.adj[i][path.indexOf(this.adj[i][w])]);
+        //console.log('cities',i, this.adj[i].indexOf(source));
+        if (path.indexOf(this.adj[i][w]) != -1){
+        //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+          path.push(source);
+
+        } else {
+          if (path.indexOf(source) == -1){
+            for (var w in this.adj[i]) {
+              //console.log(i, this.adj[i][w])
+              if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
+                path.push(source);
+              } else {
+                  if (path.indexOf(this.adj[i][w]) == -1) {
+                    path.push(this.adj[i][w]);
+                    //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
+                  }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      console.log('indexx', c[1])
+      for (var i = c[2]; i > 0; i--) {
+        console.log(this.adj[i]);
+        //console.log('cities',i, this.adj[i].indexOf(source));
+        if (path.indexOf(this.adj[i][w]) != -1){
+          //console.log(i + "loop: ", this.adj[i][w]);
+         //path.push(source);
+
+        } else {
+          //if (path.indexOf(source) == -1){
+            for (var w in this.adj[i]) {
+               console.log(i + "loop: ", this.adj[i]);
+               console.log(i,'c',c[2],c[1]);
+              if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
+                path.push(source);
+
+              } else if (path.indexOf(this.adj[i][w]) == -1) {
+                path.push(this.adj[i][w]);
+              } else {
+
+              }
+
+           // }
+          }
+        }
+      }
+      path.push(v);
+      //path.reverse();
+    }
+
   }
   //path.push(source);
   console.log(path);
