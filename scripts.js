@@ -24,12 +24,15 @@ function Graph(v) {
   this.edgeTo = [];
   this.pathTo = pathTo;
   this.hasPathTo = hasPathTo;
+  this.recursive1 = recursive1;
+  this.recursive2 = recursive2;
 }
 
 function addEdge(v,w) {
   this.adj[v].push(w);
   this.adj[w].push(v);
   this.edges++;
+
 }
 
 function showGraph() {
@@ -76,32 +79,83 @@ function bfs(s) {
 }
 
 function pathTo(v) {
-  var source = 0;
+  var source = 7  ;
   var path = [];
 
-  path.push(v);
-    for each (var w in this.adj[v]) {
-      console.log(this.adj[v].indexOf(source));
-      if (this.adj[v].indexOf(source) == -1) {
-        path.push(w);
-      }
-    }
+  if (v > source) {
+    this.recursive1(v, source, path);
+    console.log(path);
+    return path;
+  } else {
+    this.recursive2(v, source, path);
+    console.log(path);
+    return path.reverse();
+  }
 
-  path.push(source);
-  console.log(path);
-  return path;
 }
+
+function recursive1(v, source, path) {
+  if(path.indexOf(v) == -1) {
+    path.push(v);
+  }
+  for each (var w in this.adj[v]) {
+
+    if ((this.adj[v].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
+      path.push(source);
+    } else if (this.adj[v].indexOf(source) == -1){
+      if (w < v) {
+        path.push(w);
+        var index = w;
+        this.recursive1(w, source, path);
+
+      }
+    } else {
+
+    }
+  }
+}
+
+function recursive2(v, source, path) {
+  for each (var w in this.adj[source]) {
+
+    if ((this.adj[source].indexOf(v) != -1) && (path.indexOf(v) == -1)) {
+      path.push(v);
+    } else if (this.adj[source].indexOf(v) == -1){
+      if(path.indexOf(source) == -1) {
+        path.push(source);
+      }
+      if (w < source) {
+        path.push(w);
+
+        this.recursive2(v, w, path);
+
+      }
+    } else {
+
+    }
+  }
+}
+
 
 function hasPathTo(v) {
   return this.marked[v];
 }
 
-g = new Graph(5);
+g = new Graph(14);
 g.addEdge(0,1);
 g.addEdge(0,2);
 g.addEdge(1,3);
 g.addEdge(2,4);
-var vertex = 3;
+g.addEdge(2,5);
+g.addEdge(4,6);
+g.addEdge(4,7);
+g.addEdge(6,8);
+g.addEdge(6,9);
+g.addEdge(9,10);
+g.addEdge(9,11);
+g.addEdge(8,12);
+g.addEdge(12,11);
+var vertex = 11;
 var paths = g.pathTo(vertex);
 while (paths.length > 0) {
   if (paths.length > 1) {
@@ -111,120 +165,8 @@ while (paths.length > 0) {
   }
 }
 
-// #1 WHICH IS FASTER
-//
-function Vertex(label) {
-  this.label = label;
-}
+console.log(g);
 
-function Graph(v) {
-  this.vertices = v;
-  this.edges = 0;
-  this.adj = [];
-  for (var i = 0; i < this.vertices; ++i) {
-    this.adj[i] = [];
-    //this.adj[i].push("");
-  }
-  this.addEdge = addEdge;
-  this.toString = toString;
-  this.showGraph = showGraph;
-  this.marked = [];
-  for (var i = 0; i < this.vertices; ++i) {
-    this.marked[i] = false;
-  }
-  this.dfs = dfs;
-  this.bfs = bfs;
-  this.edgeTo = [];
-  this.pathTo = pathTo;
-  this.hasPathTo = hasPathTo;
-}
-
-function addEdge(v,w) {
-  this.adj[v].push(w);
-  this.adj[w].push(v);
-  this.edges++;
-}
-
-function showGraph() {
-  for (var i = 0; i < this.vertices; ++i) {
-    console.log(i + " -> ");
-    for (var j = 0; j < this.vertices; ++j) {
-      if (this.adj[i][j] != undefined) {
-        console.log(this.adj[i][j] + ' ');
-      }
-    }
-  }
-}
-
-function dfs(v) {
-  var start = new Date().getTime();
-  this.marked[v] = true;
-  if (this.adj[v] != undefined) {
-        console.log("dfs Visited vertex: " + v);
-     }
-  for each (var w in this.adj[v]) {
-    if (!this.marked[w]) {
-    this.dfs(w);
-    }
-  }
-  var stop = new Date().getTime();
-  var res = stop - start;
-  console.log('milliseconds: ',res);
-}
-
-function bfs(s) {
-  var start = new Date().getTime();
-  var queue = [];
-  this.marked[s] = true;
-  queue.push(s); // add to back of queue
-  while (queue.length > 0) {
-    var v = queue.shift(); // remove from front of queue
-    if (v != undefined) {
-      console.log("bfs Visited vertex: " + v);
-    }
-
-    for each (var w in this.adj[v]) {
-      if (!this.marked[w]) {
-        this.edgeTo[w] = v;
-        this.marked[w] = true;
-        queue.push(w);
-      }
-    }
-  }
-  var stop = new Date().getTime();
-  var res = stop - start;
-  console.log('milliseconds: ',res);
-}
-
-function pathTo(v) {
-  var source = 0;
-  var path = [];
-
-  path.push(v);
-    for each (var w in this.adj[v]) {
-      console.log(this.adj[v].indexOf(source));
-      if (this.adj[v].indexOf(source) == -1) {
-
-        path.push(w);
-
-      }
-    }
-
-  path.push(source);
-  console.log(path);
-  return path;
-}
-
-function hasPathTo(v) {
-  return this.marked[v];
-}
-
-g = new Graph(5);
-g.addEdge(0,1);
-g.addEdge(0,2);
-g.addEdge(1,3);
-g.addEdge(2,4);
-g.dfs(4);
 
 
 // #2 and #3
@@ -1411,6 +1353,8 @@ function Graph(v) {
   this.getIndex = getIndex;
   this.fs = fs;
   this.counter = 0;
+  this.recursive1 = recursive1;
+  this.recursive2 = recursive2;
 }
 
 function addEdge(v,w) {
@@ -1427,7 +1371,7 @@ function addEdge(v,w) {
   this.edgesNum[this.adj.indexOf(w)].push(v);
   //console.log('v',this.edgesNum);
   //this.adj[this.adj[this.edges].indexOf(w)].push(v);
-  //this.edges++;
+  this.edges++;
 }
 
 function showGraph() {
@@ -1551,78 +1495,64 @@ function getIndex(ele, source) {
 }
 
 function pathTo(v) {
-  var source = "Manchester";
-  var index;
+  var source = "Kensington"  ;
   var path = [];
-  var c = this.getIndex(v, source);
-  console.log(this.adj[c[2]]);
-  //path.push(v);
-  if ((this.adj[c[2]].indexOf(source) != -1) && (this.adj[c[2]].indexOf(v) != -1)) {
-    path.push(v, source);
+
+  if (this.adj.indexOf(v) > this.adj.indexOf(source)) {
+    this.recursive1(v, source, path);
+    //console.log(path);
+    return path;
   } else {
-    //console.log(c[0]);
-    if (c[0] == false) {
+    this.recursive2(v, source, path);
+    //console.log(path);
+    return path.reverse();
+  }
 
-      //TODO: handle increment case when it's false
-      for (var i = c[1]; i > 0; i--) {
-        //console.log(i+'path',this.adj[i][path.indexOf(this.adj[i][w])]);
-        //console.log('cities',i, this.adj[i].indexOf(source));
-        if ((path.indexOf(this.adj[i][w]) != -1) && (path.indexOf(source) == -1)){
-        //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
-          path.push(source);
+}
 
-        } else {
-          if (path.indexOf(source) == -1){
-            for (var w in this.adj[i]) {
-              //console.log(i, this.adj[i][w])
-              if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
-                path.push(source);
-              } else {
-                  if (path.indexOf(this.adj[i][w]) == -1) {
-                    path.push(this.adj[i][w]);
-                    //console.log(i + "loop: ", this.adj[i][path.indexOf(this.adj[i][w])]);
-                  }
-              }
-            }
-          }
-        }
+function recursive1(v, source, path) {
+  if(path.indexOf(v) == -1) {
+    path.push(v);
+  }
+
+  console.log(this.edgesNum[this.adj.indexOf(v)]);
+  for each (var w in this.edgesNum[this.adj.indexOf(v)]) {
+//console.log('w',this.adj.indexOf(w)].indexOf(w));
+    if ((this.edgesNum[this.adj.indexOf(v)].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
+      path.push(source);
+
+    } else if (this.edgesNum[this.adj.indexOf(v)].indexOf(source) == -1){
+      if ((this.adj.indexOf(w) < this.adj.indexOf(v)) && (path.indexOf(w) == -1)) {
+        path.push(w);
+        //var index = w;
+        this.recursive1(w, source, path);
+
       }
     } else {
-      console.log('indexx', c[1])
-      for (var i = c[3]; i > 0; i--) {
-        console.log(c[3]);
-        //console.log('cities',i, this.adj[i].indexOf(source));
-        if ((path.indexOf(this.adj[i][w]) != -1) && (path.indexOf(v) == -1)) {
-          //console.log(i + "loop: ", this.adj[i][w]);
-         path.push(v);
-        } else {
-          //if (path.indexOf(source) == -1){
-            for (var w in this.adj[i]) {
-               //console.log(i + "loop: ", this.adj[i]);
-               //console.log(i,'c',c[2],c[1]);
-              if ((this.adj[i].indexOf(source) != -1) && (path.indexOf(source) == -1)) {
-                path.push(source);
-//&&(this.adj[i][w] != v) && (path.indexOf(v) == -1)
-              } else if ((path.indexOf(this.adj[i][w]) == -1) && (path.indexOf(v) == -1)) {
-                path.push(this.adj[i][w]);
 
-
-              } else {
-//path.push(v);
-              }
-
-           // }
-          }
-        }
-      }
-      //path.push(v);
-      //path.reverse();
     }
-
   }
-  //path.push(source);
-  console.log(path);
-  return path;
+}
+
+function recursive2(v, source, path) {
+  for each (var w in this.adj[source]) {
+
+    if ((this.adj[source].indexOf(v) != -1) && (path.indexOf(v) == -1)) {
+      path.push(v);
+    } else if (this.adj[source].indexOf(v) == -1){
+      if(path.indexOf(source) == -1) {
+        path.push(source);
+      }
+      if (w < source) {
+        path.push(w);
+
+        this.recursive2(v, w, path);
+
+      }
+    } else {
+
+    }
+  }
 }
 
 function hasPathTo(v) {
@@ -1640,13 +1570,13 @@ g.addEdge("Buttersea", "Derry");
 g.addEdge("Derry", "Fulham");
 console.log(g);
 g.showGraph();
-g.dfs("Chelsea");
-//var vertex = "Kensington";
-//var paths = g.pathTo(vertex);
-//while (paths.length > 0) {
-  //if (paths.length > 1) {
-  //  console.log(paths.pop() + '-');
-  //} else {
-  //  console.log(paths.pop());
-  //}
-//}
+//g.dfs("Chelsea");
+var vertex = "Derry";
+var paths = g.pathTo(vertex);
+while (paths.length > 0) {
+  if (paths.length > 1) {
+  console.log(paths.pop() + '-');
+  } else {
+    console.log(paths.pop());
+ }
+}
