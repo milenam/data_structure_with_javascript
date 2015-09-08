@@ -1,319 +1,382 @@
-// ARRAYS
+// Bubble sort
+function CArray(numElements) {
+  this.dataStore = [];
+  this.pos = 0;
+  this.numElements = numElements;
+  this.insert = insert;
+  this.toString = toString;
+  this.clear = clear;
+  this.setData = setData;
+  this.swap = swap;
+  for (var i = 0; i < numElements; ++i) {
+    this.dataStore[i] = i;
 
-// Adding, removing elements to the array 
-
-var nums = [1,2,3,4,5]
-nums.push(6); // OR
-nums[nums.length] = 6;
-print(nums); // 1,2,3,4,5,6
-
-// removing
-
-var nums = [2,3,4,5]
-var newnum = 1;
-var N = nums.length;
-for (var i = N; i >= 0; --i) {
-	nums[i] = nums[i-1];
-}
-nums[0] = newnum;
-
-
-//======== FIlTER
-
-function passing(num) { 
-	return num >= 60;
-}
-
-var grades = []; 
-for(var i=0; i < 20; ++i) {
-  grades[i] = Math.floor(Math.random() * 101); //(between 0 and 1 multiplied by 101)
-}
-var passGrades = grades.filter(passing); 
-
-print("All grades: ");
-print(grades);
-print("Passing grades: "); 
-print(passGrades);
-
-// ======== filter with strings
-
-function afterc(str) {
-  if (str.indexOf("cie") > -1) { // gives index == [] (positioning) of...
-    return true; 
   }
-  return false; 
+  this.bubbleSort = bubbleSort;
 }
 
-var words = ["recieve","deceive","percieve","deceit","concieve"]; 
-var misspelled = words.filter(afterc);
-print(misspelled); 
-
-// ======== two dimensional arrays
-
-Array.matrix = function(numrows, numcols, initial) { // Array.matrix sets numbeer of rows and columns and initial is the value of all elems in the array
-	var arr = []; 
-	for(var i=0; i < numrows; ++i) {
-    var columns = []; 
-	  for(var j=0; j < numcols; ++j){
-	    columns[j] = initial;
-	  }
-    arr[i] = columns;
-  }
-  return arr; 
-}
-
-var nums = Array.matrix(5,5,0); 
-print(nums[1][1]); // prints 0
-var names = Array.matrix(3,3,""); 
-names[1][2] = "Joe"; 
-print(names[1][2]); // displays "Joe"
-
-//example rows 
-
-var grades = [[89, 77, 78],[76, 82, 81],[91, 94, 89]]; // [89, 77, 78]
-                                                       // [76, 82, 81]
-                                                       // [91, 94, 89]
-var total = 0;
-var average = 0.0;
-for (var row = 0; row < grades.length; ++row) {
-	for (var col = 0; col < grades[row].length; ++col) { total += grades[row][col];
-
-	}
-  average = total / grades[row].length;
-  print("Student " + parseInt(row+1) + " average: " + average.toFixed(2)); //parseInt - parses a string argument and returns an integer of the specified radix, in this case radix is the index of an array[i+1]
-  total = 0;
-  average = 0.0;
-}
-
-
-// columns
-
-var grades = [[89, 77, 78],[76, 82, 81],[91, 94, 89]]; 
-var total = 0;
-var average = 0.0;
-for (var col = 0; col < grades.length; ++col) {
-	for (var row = 0; row < grades[col].length; ++row) { total += grades[row][col];
-	}
-	average = total / grades[col].length;
-	print("Test " + parseInt(col+1) + " average: " + average.toFixed(2));
-	total = 0;
-	average = 0.0;
-}
-
-// jagged arrays 
-
-var grades = [[89, 77],[76, 82, 81],[91, 94, 89, 99]]; 
-var total = 0;
-var average = 0.0;
-for (var row = 0; row < grades.length; ++row) {
-  for (var col = 0; col < grades[row].length; ++col) { total += grades[row][col];
-  }
-  average = total / grades[row].length;
-  print("Student " + parseInt(row+1) + " average: " + average.toFixed(2));
-  total = 0;
-  average = 0.0;
-}
-
-// Array of Objects 
-
-function Point(x,y) { 
-	this.x = x;
-  this.y = y; 
-}
-
-function displayPts(arr) {
-  for (var i = 0; i < arr.length; ++i) {
-	  print(arr[i].x + ", " + arr[i].y);
+function setData() {
+  for (var i = 0; i < this.numElements; ++i) {
+    this.dataStore[i] = Math.floor(Math.random() * (this.numElements+1));
   }
 }
-var p1 = new Point(1,2);
-var p2 = new Point(3,5);
-var p3 = new Point(2,8);
-var p4 = new Point(4,4);
-var points = [p1,p2,p3,p4];
-for (var i = 0; i < points.length; ++i) {
-  print("Point " + parseInt(i+1) + ": " + points[i].x + ", " + points[i].y);
-}
 
-// ----
-
-function weekTemps() { 
-	this.dataStore = []; 
-	this.add = add; 
-	this.average = average;
-}
-
-function add(temp) { 
-	this.dataStore.push(temp);
-}
-
-function average() {
-var total = 0;
-for (var i = 0; i < this.dataStore.length; ++i) {
-  total += this.dataStore[i]; 
-}
-  return total / this.dataStore.length; 
-}
-
-// exercises 
-// 1
-function Grades() { 
-	this.dataStore = []; 
-	this.add = add; 
-	this.average = average;
-}
-
-function add(grade) {
-	this.dataStore.push(grade);
-}
-
-function average() {
-	var total = 0;
-	for(var i = 0; i < this.dataStorage.length; ++i) {
-		total += this.dataStorage[i];
-	}
-
-	return total / this.DataStore.length;
-}
-
-// 2
-
-var arr = ['start', 'sdfd', 'erfter', 'ertre', 'end'];
-
-print(arr);
-
-var n = arr.length;
-for (var i = n; i >= 0; --i) { 
-	arr[i] = arr[i-1]; 
-	print(arr[i-1]);
-} 
-
-// 3
-// TODO: write this in the prototypal pattern
-
-window.dataStore = new Array.matrix(4, 7, null);
-function weekTemps() { 
-  
-  this.add = add; 
-  this.average = average;
-
-} 
-
-function add(temp, week, dayoftheweek) {
-  window.dataStore[week][dayoftheweek] = temp;
-}
-
-weekTemps.prototype.average = function() {
-  var weektotal = 0;
-	  for (var i = 0; i < window.dataStore.length; ++i) {
-	  weektotal += window.dataStore[i]; 
+function clear() {
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    this.dataStore[i] = 0;
   }
-  return weektotal / window.dataStore.length; 
-}
-var stat = new weekTemps();
-stat.add(53, 0, 2);
-stat.add(43, 1, 0);
-stat.add(73, 2, 1);
-
-// stat.add(temp, week, dayoftheweek);
-// [[],
-//  [],
-//  [],
-//  []]
-
-console.log(this.dataStore);
-
-// 4
-
-function Words() { 
-  this.dataStore = []; 
-  this.add = add; 
-  this.displayWord = displayWord;
 }
 
-function add(letter) {
-  this.dataStore.push(letter);
+function insert(element) {
+  this.dataStore[this.pos++] = element;
 }
 
-function displayWord() {
-
-  var words = this.dataStore.join("");
-  console.log(words);
-}
-
-var randWord = new Words();
-randWord.add('i');
-randWord.add('p');
-randWord.add('h');
-randWord.add('o');
-randWord.add('n');
-randWord.add('e');
-
-randWord.displayWord();
-
-
-
-
-
-function weekTemps() { 
-  this.dataStore = function() {
-    Array.prototype.matrix(4, 7, null) // trying to copy an Array object into weekTemps
-  };
-
-} 
-
-
-
-weekTemps.prototype.add = function(temp, week, dayoftheweek) {
-  this.dataStore[week][dayoftheweek] = temp;
-}
-
-weekTemps.prototype.average = function() {
-  var weektotal = 0;
-    for (var i = 0; i < this.dataStore.length; ++i) {
-    weektotal += this.dataStore[i]; 
-  }
-  return weektotal / this.dataStore.length; 
-}
-var stat = new weekTemps();
-stat.add(53, 0, 2);
-stat.add(43, 1, 0);
-stat.add(73, 2, 1);
-
-// stat.add(temp, week, dayoftheweek);
-// [[],
-//  [],
-//  [],
-//  []]
-
-console.log(this.dataStore);
-
-
-// Don't polute the global namespace!
-// TODO: show me the version of code you have in mind
-// TODO: create two "classes" that share some prototyped behavior
-
-var Foo = function() {
-    this.instMeth = 3;
-    this.add = function(val) {
-        return (this.instMeth + val);
+function toString() {
+  var retstr = "";
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    retstr += this.dataStore[i] + " ";
+    if (i > 0 && i % 10 == 0) {
+      retstr += "\n";
     }
+  }
+
+  return retstr;
+}
+
+function swap(arr, index1, index2) {
+  var temp = arr[index1];
+  arr[index1] = arr[index2];
+  arr[index2] = temp;
+}
+
+function bubbleSort() {
+  var numElements = this.dataStore.length;
+  var temp;
+  for (var outer = numElements; outer >= 2; --outer) {
+    //console.log(outer);
+    for (var inner = 0; inner < outer-1; ++inner) {
+
+      if (this.dataStore[inner] > this.dataStore[inner+1]) {
+        swap(this.dataStore, inner, inner+1);
+      }
+    }
+    console.log(this.toString());
+  }
+}
+
+var numElements = 10;
+var myNums = new CArray(numElements);
+myNums.setData();
+//console.log(myNums);
+myNums.bubbleSort();
+//console.log();
+console.log(myNums.toString());
+
+// selection sort
+function CArray(numElements) {
+  this.dataStore = [];
+  this.pos = 0;
+  this.numElements = numElements;
+  this.insert = insert;
+  this.toString = toString;
+  this.clear = clear;
+  this.setData = setData;
+  this.swap = swap;
+  for (var i = 0; i < numElements; ++i) {
+    this.dataStore[i] = i;
+
+  }
+  this.bubbleSort = bubbleSort;
+  this.selectionSort = selectionSort;
+}
+
+function setData() {
+  for (var i = 0; i < this.numElements; ++i) {
+    this.dataStore[i] = Math.floor(Math.random() * (this.numElements+1));
+  }
+}
+
+function clear() {
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    this.dataStore[i] = 0;
+  }
+}
+
+function insert(element) {
+  this.dataStore[this.pos++] = element;
+}
+
+function toString() {
+  var retstr = "";
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    retstr += this.dataStore[i] + " ";
+    if (i > 0 && i % 10 == 0) {
+      retstr += "\n";
+    }
+  }
+
+  return retstr;
+}
+
+function swap(arr, index1, index2) {
+  var temp = arr[index1];
+  arr[index1] = arr[index2];
+  arr[index2] = temp;
+}
+
+function bubbleSort() {
+  var numElements = this.dataStore.length;
+  var temp;
+  for (var outer = numElements; outer >= 2; --outer) {
+    //console.log(outer);
+    for (var inner = 0; inner < outer-1; ++inner) {
+
+      if (this.dataStore[inner] > this.dataStore[inner+1]) {
+        swap(this.dataStore, inner, inner+1);
+      }
+    }
+    console.log(this.toString());
+  }
+}
+
+function selectionSort() {
+  var min, temp;
+  for (var outer = 0; outer <= this.dataStore.length-2; ++outer) {
+    //console.log('ds', this.dataStore.length-2);
+    min = outer;
+    for (var inner = outer + 1;
+     inner <= this.dataStore.length-1; ++inner) {
+     if (this.dataStore[inner] < this.dataStore[min]) {
+       min = inner;
+     }
+    }
+    swap(this.dataStore, outer, min);
+    console.log(this.toString());
+  }
+}
+
+var numElements = 10;
+var myNums = new CArray(numElements);
+myNums.setData();
+//console.log(myNums);
+myNums.selectionSort();
+//console.log();
+console.log(myNums.toString());
+
+// insertion sort
+function CArray(numElements) {
+  this.dataStore = [];
+  this.pos = 0;
+  this.numElements = numElements;
+  this.insert = insert;
+  this.toString = toString;
+  this.clear = clear;
+  this.setData = setData;
+  this.swap = swap;
+  for (var i = 0; i < numElements; ++i) {
+    this.dataStore[i] = i;
+
+  }
+  this.bubbleSort = bubbleSort;
+  this.selectionSort = selectionSort;
+  this.insertionSort = insertionSort;
+}
+
+function setData() {
+  for (var i = 0; i < this.numElements; ++i) {
+    this.dataStore[i] = Math.floor(Math.random() * (this.numElements+1));
+  }
+}
+
+function clear() {
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    this.dataStore[i] = 0;
+  }
+}
+
+function insert(element) {
+  this.dataStore[this.pos++] = element;
+}
+
+function toString() {
+  var retstr = "";
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    retstr += this.dataStore[i] + " ";
+    if (i > 0 && i % 10 == 0) {
+      retstr += "\n";
+    }
+  }
+
+  return retstr;
+}
+
+function swap(arr, index1, index2) {
+  var temp = arr[index1];
+  arr[index1] = arr[index2];
+  arr[index2] = temp;
+}
+
+function bubbleSort() {
+  var numElements = this.dataStore.length;
+  var temp;
+  for (var outer = numElements; outer >= 2; --outer) {
+    //console.log(outer);
+    for (var inner = 0; inner < outer-1; ++inner) {
+
+      if (this.dataStore[inner] > this.dataStore[inner+1]) {
+        swap(this.dataStore, inner, inner+1);
+      }
+    }
+    //console.log(this.toString());
+  }
+}
+
+function selectionSort() {
+  var min, temp;
+  for (var outer = 0; outer <= this.dataStore.length-2; ++outer) {
+    //console.log('ds', this.dataStore.length-2);
+    min = outer;
+    for (var inner = outer + 1;
+     inner <= this.dataStore.length-1; ++inner) {
+     if (this.dataStore[inner] < this.dataStore[min]) {
+       min = inner;
+     }
+    }
+    swap(this.dataStore, outer, min);
+    //console.log(this.toString());
+  }
+}
+
+function insertionSort() {
+  var temp, inner;
+    for (var outer = 1; outer <= this.dataStore.length-1; ++outer) {
+      temp = this.dataStore[outer];
+      inner = outer;
+      //console.log(inner);
+      while (inner > 0 && (this.dataStore[inner-1] >= temp)) {
+        this.dataStore[inner] = this.dataStore[inner-1];
+        --inner;
+      }
+      this.dataStore[inner] = temp;
+      //console.log(this.toString());
+  }
 }
 
 
-var Bar = function() {
-    this.diffMeth = 5;
-    this.add = function(val) {
-        return (this.diffMeth + val + 4);
-    }   
+var numElements = 10000;
+var nums = new CArray(numElements);
+nums.setData();
+var start = new Date().getTime(); nums.bubbleSort();
+var stop = new Date().getTime();
+var elapsed = stop - start;
+console.log("Elapsed time for the bubble sort on " +
+numElements + " elements is: " + elapsed + " milliseconds.");
+start = new Date().getTime();
+nums.selectionSort();
+stop = new Date().getTime();
+elapsed = stop - start;
+console.log("Elapsed time for the selection sort on " +
+numElements + " elements is: " + elapsed + " milliseconds.");
+start = new Date().getTime();
+nums.insertionSort();
+stop = new Date().getTime();
+elapsed = stop - start;
+console.log("Elapsed time for the insertion sort on " +
+numElements + " elements is: " + elapsed + " milliseconds.");
+
+// shellsort
+
+function CArray(numElements) {
+  this.dataStore = [];
+  this.pos = 0;
+  this.numElements = numElements;
+  this.insert = insert;
+  this.toString = toString;
+  this.clear = clear;
+  this.setData = setData;
+  this.swap = swap;
+  for (var i = 0; i < numElements; ++i) {
+    this.dataStore[i] = i;
+
+  }
+  this.bubbleSort = bubbleSort;
+  this.selectionSort = selectionSort;
+  this.insertionSort = insertionSort;
+  this.gaps = [5,3,1];
+  this.shellsort = shellsort;
+  this.shellsort1 = shellsort1;
 }
 
-var f = new Foo()
-f.instMeth;
+function setData() {
+  for (var i = 0; i < this.numElements; ++i) {
+    this.dataStore[i] = Math.floor(Math.random() * (this.numElements+1));
+  }
+}
 
-var b = new Bar();
-b.diffMeth;
+function clear() {
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    this.dataStore[i] = 0;
+  }
+}
 
+function insert(element) {
+  this.dataStore[this.pos++] = element;
+}
 
+function toString() {
+  var retstr = "";
+  for (var i = 0; i < this.dataStore.length; ++i) {
+    retstr += this.dataStore[i] + " ";
+    if (i > 0 && i % 10 == 0) {
+      retstr += "\n";
+    }
+  }
 
+  return retstr;
+}
 
+function swap(arr, index1, index2) {
+  var temp = arr[index1];
+  arr[index1] = arr[index2];
+  arr[index2] = temp;
+}
+
+function shellsort() {
+  for (var g = 0; g < this.gaps.length; ++g) {
+    for (var i = this.gaps[g]; i < this.dataStore.length; ++i) {
+      var temp = this.dataStore[i];
+        for (var j = i; j >= this.gaps[g] &&
+        this.dataStore[j-this.gaps[g]] > temp; j -= this.gaps[g]) {
+        this.dataStore[j] = this.dataStore[j - this.gaps[g]];
+          //this.toString()
+      }
+        this.dataStore[j] = temp;
+
+    }
+  }
+}
+
+function shellsort1() {
+  var N = this.dataStore.length;
+  var h = 1;
+  while (h < N/3) {
+    h = 3 * h + 1;
+  }
+  while (h >= 1) {
+    for (var i = h; i < N; i++) {
+      for (var j = i; j >= h && this.dataStore[j] < this.dataStore[j-h]; j -= h) {
+       swap(this.dataStore, j, j-h);
+      }
+    }
+    h = (h-1)/3;
+  }
+}
+
+var numElements = 10;
+var nums = new CArray(numElements);
+nums.setData();
+console.log("Before Shellsort: \n");
+console.log(nums.toString());
+nums.shellsort1();
+console.log("\nAfter Shellsort: \n");
+console.log(nums.toString());
