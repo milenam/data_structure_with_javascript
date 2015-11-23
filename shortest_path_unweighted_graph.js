@@ -240,13 +240,14 @@ function bfs(s) {
   queue.push(s); // add to back of queue
   while (queue.length > 0) {
     var v = queue.shift(); // remove from front of queue
-    if (v != undefined) {
-      console.log("bfs Visited vertex: " + v);
-    }
+    //if (v != undefined) {
+      //console.log("bfs Visited vertex: " + v);
+    //}
 
     for each (var w in this.adj[v]) {
       if (!this.marked[w]) {
-        this.edgeTo[w] = v;
+        this.edgeTo[w] = v; // use it for the shortest path
+        console.log(this.edgeTo);
         this.marked[w] = true;
         queue.push(w);
       }
@@ -255,56 +256,34 @@ function bfs(s) {
 }
 
 function pathTo(source, v) {
-  //var s = 1;
   var path = [];
-//console.log('reaches');
-  //var source = 0;
   this.bfs(source);
-  //if (!this.hasPathTo(v)) {
-   //return undefined; 
-   //console.log('reaches');
-  //}
-  //console.log(this.hasPathTo(v));
-  // var path = [];
-  
-   for (var i = v; i != source; i = this.edgeTo[i]) { 
-      console.log(this.edgeTo[i]);
+  var i = v;
+   while(i != source) { 
      path.push(i);
+     i = this.edgeTo[i];
    } 
   path.push(source);
  
   return path;
 }
 
-function hasPathTo(v) { 
-   //console.log(this.marked[v]);
-   return this.marked[v];
-}
+//function hasPathTo(v) { 
+//   return this.marked[v];
+//}
 
 
 
-g = new Graph(12);
+g = new Graph(5);
 g.addEdge(0,1);
 g.addEdge(0,2);
-g.addEdge(1,2);
-g.addEdge(1,4);
-g.addEdge(3,2);
-g.addEdge(7,8);
-g.addEdge(3,0);
-g.addEdge(4,5);
-g.addEdge(5,2);
-g.addEdge(7,5);
-g.addEdge(5,6);
-g.addEdge(5,7);
-g.addEdge(6,5);
-g.addEdge(6,7);
-g.addEdge(4,2);
-g.addEdge(9,8);
-g.addEdge(9,10);
-g.addEdge(9,11);
+g.addEdge(1,3);
+g.addEdge(2,4);
+
+
 //g.bfs(0);
-var source = 9;
-var vertex = 1;
+var source = 1;
+var vertex = 2;
 var paths = g.pathTo(source, vertex); 
 var str= "";
 //console.log(paths);
